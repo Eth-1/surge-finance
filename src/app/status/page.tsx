@@ -3,6 +3,8 @@ import { getStatus } from "@/lib/api";
 import { StatusLookupForm } from "@/components/StatusLookupForm";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { StatusResults } from "@/components/StatusResults";
+import { FaqSection } from "@/components/status/FaqSection";
+import { RECEIPT_FORM_URL, MILEAGE_FORM_URL } from "@/lib/forms";
 import type { StatusResponse } from "@/lib/types";
 
 export const metadata = { title: "Check Status — Surge Finance" };
@@ -68,12 +70,25 @@ export default async function StatusPage({
     <div className="mx-auto max-w-3xl">
       <header className="mb-4">
         <h1 className="text-xl font-semibold">Reimbursement Status</h1>
-        <p className="muted text-sm">Look up your receipt &amp; mileage submissions by email.</p>
+        <p className="muted text-sm">Submit a new request, or look up your receipt &amp; mileage submissions by email.</p>
       </header>
+
+      {/* Submit buttons → Google Forms */}
+      <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <a href={RECEIPT_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary surge-card-hover justify-center py-3">
+          🧾 Submit a Receipt
+        </a>
+        <a href={MILEAGE_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost surge-card-hover justify-center py-3">
+          🚗 Submit Mileage
+        </a>
+      </div>
+
       <div className="surge-card mb-6">
         <StatusLookupForm defaultEmail={email} preserveId={id} />
       </div>
       {body}
+
+      <FaqSection />
     </div>
   );
 }

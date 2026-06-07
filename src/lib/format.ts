@@ -43,6 +43,17 @@ export function statusBadgeClass(status: string): BadgeClass {
   }
 }
 
+export type StatusBucket = "pending" | "approved" | "reimbursed" | "rejected";
+
+/** Group a member-facing status into a summary bucket (for /status stat chips). */
+export function statusBucket(status: string): StatusBucket {
+  const s = String(status || "").trim();
+  if (/reject/i.test(s)) return "rejected";
+  if (s === "Reimbursed") return "reimbursed";
+  if (s === "Pending" || s === "Coordinator Approved" || s === "Director Approved") return "pending";
+  return "approved"; // Fully Approved, Approved, CR*, Awaiting Payment, Payment Received, Action Required, Distributed…
+}
+
 /** "x minutes ago" for the stale-data indicator (§6.4). */
 export function relativeTime(iso: string): string {
   if (!iso) return "unknown";

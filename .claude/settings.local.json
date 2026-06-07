@@ -15,7 +15,9 @@
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: rewrite SETUP.md \\(numbered, menu paths, GitHub+Vercel, troubleshooting, advance workflow\\), add README, document audit additions in HARDENING \\(G, E-1\\) *)",
       "Bash(command -v node)",
       "Bash(ls node_modules)",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: mark audit-improvement pass complete in PLAN tracker *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: mark audit-improvement pass complete in PLAN tracker *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(status\\): submit-form buttons, summary chips + sort + filter + CSV export, FAQ, meta fields \\(CR#/Payment/Purchase/Submitted\\), email-aware copy link, redesigned non-clipping progress bar, entrance animations, fix stuck '\\\\''Checking…'\\\\'' via useTransition *)",
+      "Bash(git -c user.name=\"Claude\" -c user.email=\"noreply@anthropic.com\" commit -q --allow-empty -m \"placeholder\")"
     ]
   }
 }

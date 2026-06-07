@@ -1,26 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 /**
  * Email lookup form for /status (§4.4). Navigates to /status?email=… so the
- * Server Component re-renders with results (and middleware can rate-limit the
- * lookup). The email is sent normalized; the deep-link id (if any) is preserved.
+ * Server Component re-renders with results. Uses useTransition so the button's
+ * pending state resets automatically once the new page has rendered (fixes the
+ * "stuck on Checking…" bug).
  */
 export function StatusLookupForm({ defaultEmail = "", preserveId = "" }: { defaultEmail?: string; preserveId?: string }) {
   const router = useRouter();
   const [email, setEmail] = useState(defaultEmail);
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
     const normalized = email.trim().toLowerCase();
     if (!normalized) return;
-    setLoading(true);
     const params = new URLSearchParams({ email: normalized });
     if (preserveId) params.set("id", preserveId);
-    router.push(`/status?${params.toString()}`);
+    startTransition(() => router.push(`/status?${params.toString()}`));
   }
 
   return (
@@ -33,8 +33,14 @@ export function StatusLookupForm({ defaultEmail = "", preserveId = "" }: { defau
         onChange={(e) => setEmail(e.target.value)}
         autoComplete="email"
       />
-      <button type="submit" className="btn btn-primary whitespace-nowrap" disabled={loading || !email.trim()}>
-        {loading ? "Checking…" : "Check status"}
+      <button type="submit" className="btn btn-primary whitespace-nowrap" disabled={isPending || !email.trim()}>
+        {isPending ? (
+          <>
+            <span className="spinner spinner-sm" /> Checking…
+          </>
+        ) : (
+          "Check status"
+        )}
       </button>
     </form>
   );

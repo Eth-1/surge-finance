@@ -1,52 +1,55 @@
 import type { Progress } from "@/lib/format";
 
 /**
- * Self-service progress bar (§4.4). 8-step CR path or 4-step direct path.
+ * Self-service progress stepper (§4.4). 8-step CR path or 4-step direct path.
  * Action Required renders at the active step with a 🔧 + "Info Requested"
- * sub-label and amber styling rather than a separate step (X6). Rejected shows
- * a danger indicator instead of progress.
+ * sub-label (X6). Rejected shows a danger banner.
+ *
+ * The wrapper scrolls horizontally (min-w-max) with top padding so the active
+ * step's glow ring is never clipped (previous overflow-y clipping bug).
  */
 export function ProgressBar({ progress }: { progress: Progress }) {
   if (progress.rejected) {
     return (
-      <div className="my-3">
-        <span className="badge badge-danger">✕ Rejected</span>
+      <div className="my-3 flex items-center gap-2 rounded-md px-3 py-2 text-sm"
+        style={{ background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.3)", color: "var(--color-danger)" }}>
+        <span>✕</span><span className="font-medium">Rejected</span>
       </div>
     );
   }
 
   return (
-    <div className="my-3 flex items-start gap-1 overflow-x-auto pb-1">
-      {progress.steps.map((label, i) => {
-        const stepNum = i + 1;
-        const isActionStep = progress.actionRequired && stepNum === progress.current;
-        const done = stepNum < progress.current;
-        const active = stepNum === progress.current;
+    <div className="my-3 overflow-x-auto">
+      <div className="flex min-w-max items-start gap-0 px-1 pt-3 pb-1">
+        {progress.steps.map((label, i) => {
+          const stepNum = i + 1;
+          const isAction = progress.actionRequired && stepNum === progress.current;
+          const done = stepNum < progress.current;
+          const active = stepNum === progress.current;
+          const stepClass = isAction ? "action" : done ? "done" : active ? "active" : "todo";
 
-        const circleClass = isActionStep
-          ? "bg-warning text-white"
-          : done
-          ? "bg-primary text-white"
-          : active
-          ? "bg-primary text-white ring-2 ring-primary-light"
-          : "bg-surface-3 text-text-muted";
-
-        const sublabel = isActionStep ? "Info Requested" : "";
-
-        return (
-          <div key={i} className="flex min-w-[64px] flex-1 flex-col items-center text-center">
-            <div className="flex w-full items-center">
-              <div className={`h-0.5 flex-1 ${i === 0 ? "opacity-0" : done || active ? "bg-primary" : "bg-surface-3"}`} />
-              <div className={`mx-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold ${circleClass}`}>
-                {isActionStep ? "🔧" : done ? "✓" : stepNum}
+          return (
+            <div key={i} className="flex w-[58px] flex-col items-center text-center">
+              <div className="flex w-full items-center">
+                <div className={`surge-connector ${i === 0 ? "opacity-0" : done || active ? "filled" : "empty"}`} />
+                <div className={`surge-step mx-1 ${stepClass} ${active ? "animate-pop" : ""}`}>
+                  {isAction ? "🔧" : done ? "✓" : stepNum}
+                </div>
+                <div className={`surge-connector ${i === progress.steps.length - 1 ? "opacity-0" : done ? "filled" : "empty"}`} />
               </div>
-              <div className={`h-0.5 flex-1 ${i === progress.steps.length - 1 ? "opacity-0" : done ? "bg-primary" : "bg-surface-3"}`} />
+              <span
+                className={
+                  "mt-1.5 whitespace-pre-line text-[10px] leading-tight " +
+                  (active ? "font-semibold text-text" : "text-text-secondary")
+                }
+              >
+                {label}
+              </span>
+              {isAction && <span className="text-[10px] font-semibold text-warning">Info Requested</span>}
             </div>
-            <span className="mt-1 whitespace-pre-line text-[10px] leading-tight text-text-secondary">{label}</span>
-            {sublabel && <span className="text-[10px] font-semibold text-warning">{sublabel}</span>}
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
