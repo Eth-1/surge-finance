@@ -2,6 +2,8 @@ import type { ReportResponse } from "@/lib/types";
 import { formatCAD } from "@/lib/format";
 import { StatusBadge } from "@/components/ui/Badge";
 import { PrintButton } from "./PrintButton";
+import { ByStatusTable } from "./ByStatusTable";
+import { ExportReportButton } from "./ExportReportButton";
 
 /** Renders a generated report: summary + category bars + status table + grant info. */
 export function ReportViewer({ report }: { report: ReportResponse }) {
@@ -17,7 +19,10 @@ export function ReportViewer({ report }: { report: ReportResponse }) {
             {s.totalDisplay} · {s.count} expense{s.count === 1 ? "" : "s"}
           </p>
         </div>
-        <PrintButton />
+        <div className="flex items-center gap-2">
+          <ExportReportButton report={report} />
+          <PrintButton />
+        </div>
       </div>
 
       {report.grant && (
@@ -54,24 +59,7 @@ export function ReportViewer({ report }: { report: ReportResponse }) {
 
       <div className="surge-card">
         <p className="section-title mb-3">By Status</p>
-        <table className="w-full text-left text-sm">
-          <thead>
-            <tr className="border-b text-text-secondary">
-              <th className="py-1 font-medium">Status</th>
-              <th className="py-1 text-right font-medium">Count</th>
-              <th className="py-1 text-right font-medium">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {s.byStatus.map((row) => (
-              <tr key={row.status} className="border-b last:border-0">
-                <td className="py-1.5"><StatusBadge status={row.status} /></td>
-                <td className="py-1.5 text-right">{row.count}</td>
-                <td className="py-1.5 text-right font-medium">{row.totalDisplay}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ByStatusTable rows={s.byStatus} />
       </div>
     </div>
   );

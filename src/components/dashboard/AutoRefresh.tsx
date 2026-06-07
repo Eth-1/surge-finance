@@ -11,18 +11,21 @@ import { useRouter } from "next/navigation";
  */
 export function AutoRefresh({
   initialChecksum,
+  fy = "",
   children,
 }: {
   initialChecksum: string;
+  fy?: string;
   children: React.ReactNode;
 }) {
   const router = useRouter();
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
+    const url = "/api/dashboard-checksum" + (fy ? `?fy=${encodeURIComponent(fy)}` : "");
     const id = setInterval(async () => {
       try {
-        const res = await fetch("/api/dashboard-checksum", { cache: "no-store" });
+        const res = await fetch(url, { cache: "no-store" });
         const json = await res.json();
         if (json.checksum && json.checksum !== initialChecksum) setUpdated(true);
       } catch {
@@ -30,7 +33,7 @@ export function AutoRefresh({
       }
     }, 300000);
     return () => clearInterval(id);
-  }, [initialChecksum]);
+  }, [initialChecksum, fy]);
 
   function refresh() {
     setUpdated(false);

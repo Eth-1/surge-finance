@@ -74,6 +74,10 @@ export function ReportControls({ projects, fundingSources }: { projects: string[
 
         <button className="btn btn-primary" onClick={generate}>Generate</button>
       </div>
+      <p className="muted text-xs">
+        Pick a type and its parameter, then Generate. Reports exclude rejected/cancelled items and
+        automatically include archived prior-year records when the range predates the live window.
+      </p>
     </div>
   );
 }

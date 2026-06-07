@@ -9,11 +9,12 @@ import type { DashboardData } from "@/lib/types";
  * for the smart auto-refresh poller (§4.5f). Reads the token from the cookie
  * server-side; benefits from the dashboard ISR cache.
  */
-export async function GET() {
+export async function GET(req: Request) {
   const token = getServerToken();
   if (!token) return NextResponse.json({ checksum: "" });
+  const fy = new URL(req.url).searchParams.get("fy") || "";
   try {
-    const data = (await getDashboard(token)) as DashboardData & { error?: string };
+    const data = (await getDashboard(token, fy)) as DashboardData & { error?: string };
     if (data.error) return NextResponse.json({ checksum: "" });
     return NextResponse.json({ checksum: dashboardChecksum(data) }, { headers: { "Cache-Control": "no-store" } });
   } catch {
