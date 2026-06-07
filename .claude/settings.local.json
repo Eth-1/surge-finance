@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"D:/CLAUDE CODE - SFU Surge Finance System\" status)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'Baseline: V2.2 build before audit-improvement pass *)"
+    ]
+  }
+}

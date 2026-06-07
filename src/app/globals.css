@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================================
+   §4.1a — Color palette: DARK MODE (default)
+   ===================================================================== */
+:root,
+[data-theme="dark"] {
+  --color-bg: #0f1117;
+  --color-surface: #1a1d27;
+  --color-surface-2: #242833;
+  --color-surface-3: #2e3240;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-text: #e8eaed;
+  --color-text-secondary: #9aa0a6;
+  --color-text-muted: #6b7280;
+  --color-primary: #6366f1;
+  --color-primary-light: #818cf8;
+  --color-accent: #06b6d4;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-info: #60a5fa;
+  --glass-bg: rgba(26, 29, 39, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --card-bg: #1a1d27;
+  --nav-height: 60px;
+
+  /* §4.1c–e shadows / radii / transitions (retained from V1) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.45);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  color-scheme: dark;
+}
+
+/* =====================================================================
+   §4.1b — Color palette: LIGHT MODE
+   ===================================================================== */
+[data-theme="light"] {
+  --color-bg: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-surface-2: #f0f2f5;
+  --color-surface-3: #e4e7ec;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-text: #1a1d27;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #6b7280;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --card-bg: #ffffff;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 4px 14px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 14px 40px rgba(16, 24, 40, 0.12);
+  color-scheme: light;
+}
+
+/* =====================================================================
+   Base resets / typography (§4.1f)
+   ===================================================================== */
+* { box-sizing: border-box; }
+html, body { padding: 0; margin: 0; }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition), color var(--transition);
+}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4 { color: var(--color-text); margin: 0; font-weight: 600; }
+::selection { background: var(--color-primary); color: #fff; }
+
+/* =====================================================================
+   Reusable component classes (token-driven, no hex in app components)
+   ===================================================================== */
+@layer components {
+  .surge-card {
+    background: var(--card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 18px;
+    transition: box-shadow var(--transition), transform var(--transition);
+  }
+  .surge-card-hover:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-success { background: rgba(52, 211, 153, 0.15); color: var(--color-success); }
+  .badge-warning { background: rgba(251, 191, 36, 0.15); color: var(--color-warning); }
+  .badge-danger { background: rgba(248, 113, 113, 0.15); color: var(--color-danger); }
+  .badge-info { background: rgba(96, 165, 250, 0.15); color: var(--color-info); }
+  .badge-neutral { background: var(--color-surface-3); color: var(--color-text-secondary); }
+  /* §4.2 V2: Action Required */
+  .badge-action { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 9px 16px; border-radius: var(--radius-md); border: 1px solid transparent;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast);
+  }
+  .btn-primary { background: var(--color-primary); color: #fff; }
+  .btn-primary:hover { background: var(--color-primary-light); }
+  .btn-ghost { background: transparent; border-color: var(--color-border); color: var(--color-text); }
+  .btn-ghost:hover { background: var(--color-surface-2); }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .input {
+    width: 100%; padding: 10px 12px; border-radius: var(--radius-md);
+    background: var(--color-surface-2); border: 1px solid var(--color-border);
+    color: var(--color-text); font-size: 14px; outline: none;
+    transition: border-color var(--transition-fast);
+  }
+  .input:focus { border-color: var(--color-primary); }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-surface-2), var(--color-surface-3), var(--color-surface-2));
+    background-size: 200% 100%;
+    animation: surge-shimmer 1.4s ease-in-out infinite;
+    border-radius: var(--radius-md);
+  }
+
+  .muted { color: var(--color-text-muted); }
+  .section-title { color: var(--color-text-secondary); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* D2: single-cycle pulse for Fully Approved badges */
+  .pulse-once { animation: surge-pulse 0.6s ease-out; }
+
+  /* Live connection dot (§4.5f) */
+  .dot-live {
+    width: 8px; height: 8px; border-radius: 999px; background: var(--color-success);
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.6); animation: surge-dot 2s ease-out infinite;
+  }
+}
+
+/* =====================================================================
+   Animations (§4.1c / §3.15 retained)
+   ===================================================================== */
+@keyframes surge-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes surge-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+@keyframes surge-dot {
+  0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+@keyframes surge-spin { to { transform: rotate(360deg); } }
+.spinner { width: 16px; height: 16px; border: 2px solid var(--color-border); border-top-color: var(--color-primary); border-radius: 999px; animation: surge-spin 0.7s linear infinite; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+}
