@@ -360,19 +360,19 @@ Approved: A-1..A-5, B-1..B-5, C-1..C-3, D-1..D-3, E-1, E-2, F-1, F-2, G. Denied:
 
 Commit groups:
 - [x] G0 chore: git baseline + .gitattributes + tracker
-- [ ] G1 GAS submissions: server sort/dir + project/date/amount filters + distinct statuses (F-1, C-1/B-4, D-1, D-2 FY-scope+cache)
-- [ ] G2 GAS E-1 personal advances: `Advanced By` col (Expenses+Archive), COLS, moveRowToExpenses, Dashboard advances KPI/alert + payload
-- [ ] G3 Next lib: types/api updates (sort/filter params, statuses[], advances, ExpenseType)
-- [ ] G4 Next UI shell: mobile nav (A-1), not-found (C-3), error/loading boundaries (A-3, C-2)
-- [ ] G5 Next UI submissions: sortable headers + filters + CSV + readability + row accents (F-1, A-2, A-4, B-2, B-5, E-2, A-5)
-- [ ] G6 Next UI dashboard+reports: FY selector (B-1), advances section (E-1), reports helper+CSV+sortable (B-2, B-3, F-2)
-- [ ] G7 SETUP.md rewrite + README (G)
-- [ ] G8 final summary
+- [x] G1 GAS submissions: server sort/dir + project/date/amount filters + distinct statuses (F-1, C-1/B-4, D-1, D-2 FY-scope+cache)
+- [x] G2 GAS E-1 personal advances: `Advanced By` col (Expenses+Archive), COLS, moveRowToExpenses, Dashboard advances KPI/alert + payload
+- [x] G3 Next lib: types/api updates (sort/filter params, statuses[], advances) + csv util
+- [x] G4 Next UI shell: mobile nav (A-1), not-found (C-3), error/loading boundaries (A-3, C-2)
+- [x] G5 Next UI submissions: sortable headers + filters + CSV + readability + row accents + A-4 (F-1, A-2, A-4, B-2, B-5, E-2, A-5, D-1)
+- [x] G6 Next UI dashboard+reports: FY selector (B-1), advances section (E-1), reports CSV+sortable+helper (B-2, B-3, F-2)
+- [x] G7 SETUP.md rewrite + README + HARDENING audit notes (G)
+- [x] G8 final summary
 
 ## Current Session
 
-- **Status:** Audit-improvement pass in progress — G0 done.
-- **Next:** G1 (GAS submissions sort/filter/distinct-statuses).
+- **Status:** ✅ Audit-improvement pass COMPLETE — all approved items (A/B/C/D/F/G, E-1, E-2) implemented across 8 commits. E-3 denied (not built).
+- **Validation note:** `npm install && npm run build` not run here (no node in env) — run it locally to typecheck before deploy.
 
 ### Resume notes (read before continuing)
 - **Phases 1–3 complete; Phase 4 in progress (4.1–4.9 done — `/status` fully works).**
