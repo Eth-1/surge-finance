@@ -6,7 +6,8 @@
       "Bash(git add *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'Baseline: V2.2 build before audit-improvement pass *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'chore: gitattributes + audit-improvement execution tracker *)",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(gas\\): submissions server sort + project/date/amount filters, distinct status/project options, FY-scope + 30s cache \\(F-1, C-1, B-4, D-2\\) *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(gas\\): submissions server sort + project/date/amount filters, distinct status/project options, FY-scope + 30s cache \\(F-1, C-1, B-4, D-2\\) *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(gas\\): E-1 personal advances — Advanced By column \\(Expenses+Archive\\), outstanding-advances aggregation, dashboard alert + payload/cache wiring *)"
     ]
   }
 }

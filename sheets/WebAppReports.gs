@@ -31,7 +31,8 @@ function readDashboardFromCache_() {
     },
     pipeline: getDashboardCache_('pipeline'), alerts: getDashboardCache_('alerts'),
     activity: getDashboardCache_('activity'), reconciliation: getDashboardCache_('reconciliationSummary'),
-    readyToMoveCount: getDashboardCache_('readyToMoveCount'), lists: getDashboardCache_('lists')
+    readyToMoveCount: getDashboardCache_('readyToMoveCount'), advances: getDashboardCache_('advances'),
+    lists: getDashboardCache_('lists')
   };
 }
 

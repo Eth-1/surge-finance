@@ -38,6 +38,7 @@ function dashboardPayload_(fyLabel) {
     var all = exp.getRange(2, 1, last - 1, COLS.EXP.WIDTH).getValues();
     for (var i = 0; i < all.length; i++) { if (_expRowFy_(all[i]) === fy) { fyRows.push(all[i]); } }
   }
+  var advances = _computeAdvances_(fyRows);
   return {
     fiscalYear: fy,
     generatedAt: formatDate(new Date(), 'MMM d, yyyy h:mm a'),
@@ -45,11 +46,52 @@ function dashboardPayload_(fyLabel) {
     charts: _computeCharts_(fyRows),
     pipeline: _computePipeline_(fyRows),
     activity: _computeActivity_(),
-    alerts: _computeAlerts_(),
+    alerts: _computeAlerts_(advances),
     reconciliation: computeReconciliationSummary_(),
     readyToMoveCount: countFullyApproved_(),
+    advances: advances,
     lists: _buildListsPayload_()
   };
+}
+
+/**
+ * E-1 — Outstanding personal advances. An advance is outstanding when an expense
+ * has `Advanced By` set AND its linked CR has not yet been Distributed (SFSS has
+ * not repaid the club). Settles automatically when the CR is Distributed, or
+ * when finance clears the Advanced By cell after being repaid.
+ * @return { outstandingTotal, outstandingTotalDisplay, count, byPerson[] }
+ */
+function _computeAdvances_(rows) {
+  // CR# → status map (to know which advances SFSS has already repaid).
+  var crStatus = {};
+  var cr = getSheet_(SHEETS.CR_TRACKER), crLast = cr.getLastRow();
+  if (crLast >= 2) {
+    var cd = cr.getRange(2, 1, crLast - 1, COLS.CR.FIXED_WIDTH).getValues();
+    for (var c = 0; c < cd.length; c++) {
+      crStatus[String(cd[c][COLS.CR.CR_NUMBER - 1] || '').trim()] = String(cd[c][COLS.CR.STATUS - 1] || '').trim();
+    }
+  }
+  var byPerson = {}, total = 0, count = 0;
+  for (var i = 0; i < rows.length; i++) {
+    var advBy = String(rows[i][COLS.EXP.ADVANCED_BY - 1] || '').trim();
+    if (!advBy) { continue; }
+    var crNum = String(rows[i][COLS.EXP.CR_NUMBER - 1] || '').trim();
+    var settled = (crNum && crStatus[crNum] === 'Distributed');   // SFSS repaid the club
+    if (settled) { continue; }
+    var amt = parseAmount(rows[i][COLS.EXP.VERIFIED_AMOUNT - 1]);
+    total += amt; count++;
+    if (!byPerson[advBy]) { byPerson[advBy] = { person: advBy, amount: 0, count: 0 }; }
+    byPerson[advBy].amount += amt; byPerson[advBy].count++;
+  }
+  var people = [];
+  for (var p in byPerson) {
+    if (byPerson.hasOwnProperty(p)) {
+      people.push({ person: p, amount: roundMoney(byPerson[p].amount),
+        amountDisplay: formatCAD(byPerson[p].amount), count: byPerson[p].count });
+    }
+  }
+  people.sort(function (a, b) { return b.amount - a.amount; });
+  return { outstandingTotal: roundMoney(total), outstandingTotalDisplay: formatCAD(total), count: count, byPerson: people };
 }
 
 function _computeKPIs_(rows) {
@@ -165,8 +207,8 @@ function _computeActivity_() {
   return out;
 }
 
-/** Dashboard alerts, severity-sorted (§4.22 + Action Required + X4 ready-to-move). */
-function _computeAlerts_() {
+/** Dashboard alerts, severity-sorted (§4.22 + Action Required + X4 ready-to-move + E-1 advances). */
+function _computeAlerts_(advances) {
   var cfg = getCfg(), alerts = [];
   function push(sev, msg) { alerts.push({ severity: sev, message: msg }); }
 
@@ -208,6 +250,12 @@ function _computeAlerts_() {
   var ready = countFullyApproved_();
   if (ready > 0) { push('info', ready + ' approval(s) ready to move to Expenses'); }
 
+  // E-1: personal advances awaiting club repayment.
+  if (advances && advances.outstandingTotal > 0) {
+    push('warning', 'Personal advances outstanding: ' + advances.outstandingTotalDisplay +
+      ' owed to ' + advances.byPerson.length + ' person(s)');
+  }
+
   var rank = { critical: 0, warning: 1, info: 2 };
   alerts.sort(function (a, b) { return rank[a.severity] - rank[b.severity]; });
   return alerts;
@@ -248,6 +296,7 @@ function refreshDashboardData() {
     reconciliationSummary: payload.reconciliation,
     yearEndChecklist: computeYearEndChecklist_(),
     readyToMoveCount: payload.readyToMoveCount,
+    advances: payload.advances,
     health: { status: 'ok' }
   };
 

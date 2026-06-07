@@ -520,7 +520,8 @@ function bsExpensesHeaders_() {
     'Purchase Date', 'Verified Amount (CAD)', 'Vendor', 'Description', 'Category',
     'Pre-Approved?', 'Receipt File', 'Funding Source', 'Cheque Requisition #',
     'Reimbursement Status', 'Payment Date', 'Payment Method', 'Payee',
-    'Status Age (Days)', 'Follow-Up Flag', 'Internal Notes', 'Expense Type', 'Fiscal Year'
+    'Status Age (Days)', 'Follow-Up Flag', 'Internal Notes', 'Expense Type', 'Fiscal Year',
+    'Advanced By'   // X (E-1): who fronted the money personally before SFSS repaid the club
   ];
 }
 
@@ -530,7 +531,7 @@ function applyExpensesSchema_(ss, sh) {
 
   setHeaderColors_(sh, 1, 12, BS_COLOR.BLUE);    // A–L source/copied
   setHeaderColors_(sh, 13, 21, BS_COLOR.GREEN);  // M–U finance-managed
-  setHeaderColors_(sh, 22, 23, BS_COLOR.GRAY);   // V–W system (V2 new)
+  setHeaderColors_(sh, 22, 24, BS_COLOR.GRAY);   // V–X system (V2 new + Advanced By)
 
   setColumnFormat_(sh, 2, 'MMM d, yyyy h:mm AM/PM');  // B Timestamp
   setColumnFormat_(sh, 6, 'MMM d, yyyy');             // F Purchase Date
@@ -553,7 +554,7 @@ function buildExpensesSheet_(ss) {
   var sh = getOrCreateSheet_(ss, BS_SHEETS.EXPENSES);
   applyExpensesSchema_(ss, sh);
   freezeAndHide_(sh, 1, null);
-  Logger.log('Expenses: 23 columns built.');
+  Logger.log('Expenses: 24 columns built.');
 }
 
 /* ================================================================== *
@@ -789,7 +790,7 @@ function bsDashboardKeys_() {
     'lastRefresh', 'version', 'fiscalYear', 'kpis', 'chartByCategory', 'chartByProject',
     'chartByFundingSource', 'chartMonthly', 'chartTopSubmitters', 'pipeline', 'alerts',
     'activity', 'lists', 'reconciliationSummary', 'yearEndChecklist', 'readyToMoveCount',
-    'health'
+    'advances', 'health'
   ];
 }
 

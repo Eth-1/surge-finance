@@ -74,7 +74,7 @@ function moveMileageToExpenses(row) {
       m[COLS.MILEAGE.EVENT - 1], purchaseDate, payout, 'Mileage Reimbursement', desc, 'Mileage',
       'N/A – Mileage', fileCell, 'Club Bank Account', '', 'Approved', '',
       'E-Transfer (from club account)', cfg.defaultPayee, _statusAgeFormula_(newRow), '', '',
-      'Mileage', fy
+      'Mileage', fy, ''
     ];
 
     // 4. Single atomic write.

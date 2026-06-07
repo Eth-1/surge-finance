@@ -81,7 +81,8 @@ function moveRowToExpenses(row, opts) {
       '',                                 // T Follow-Up Flag
       '',                                 // U Internal Notes
       'Receipt',                          // V Expense Type
-      fyLabel                             // W Fiscal Year
+      fyLabel,                            // W Fiscal Year
+      ''                                  // X Advanced By (E-1; blank = normal flow)
     ];
     exp.getRange(newRow, 1, 1, COLS.EXP.WIDTH).setValues([expArr]);
 
