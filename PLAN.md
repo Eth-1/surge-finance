@@ -354,11 +354,25 @@ gate, middleware, revalidate webhook, smart auto-refresh, theme, error/loading b
 
 ---
 
+## AUDIT-IMPROVEMENT PASS (post-V2.2) — execution tracker
+
+Approved: A-1..A-5, B-1..B-5, C-1..C-3, D-1..D-3, E-1, E-2, F-1, F-2, G. Denied: E-3.
+
+Commit groups:
+- [x] G0 chore: git baseline + .gitattributes + tracker
+- [ ] G1 GAS submissions: server sort/dir + project/date/amount filters + distinct statuses (F-1, C-1/B-4, D-1, D-2 FY-scope+cache)
+- [ ] G2 GAS E-1 personal advances: `Advanced By` col (Expenses+Archive), COLS, moveRowToExpenses, Dashboard advances KPI/alert + payload
+- [ ] G3 Next lib: types/api updates (sort/filter params, statuses[], advances, ExpenseType)
+- [ ] G4 Next UI shell: mobile nav (A-1), not-found (C-3), error/loading boundaries (A-3, C-2)
+- [ ] G5 Next UI submissions: sortable headers + filters + CSV + readability + row accents (F-1, A-2, A-4, B-2, B-5, E-2, A-5)
+- [ ] G6 Next UI dashboard+reports: FY selector (B-1), advances section (E-1), reports helper+CSV+sortable (B-2, B-3, F-2)
+- [ ] G7 SETUP.md rewrite + README (G)
+- [ ] G8 final summary
+
 ## Current Session
 
-- **Phase in progress:** ✅ ALL PHASES COMPLETE
-- **Last completed task:** 5.6 V2.2 hardening checklist (HARDENING.md) — project finished
-- **Next task to start:** — (none; build complete. Optional: `npm install` + deploy per SETUP.md)
+- **Status:** Audit-improvement pass in progress — G0 done.
+- **Next:** G1 (GAS submissions sort/filter/distinct-statuses).
 
 ### Resume notes (read before continuing)
 - **Phases 1–3 complete; Phase 4 in progress (4.1–4.9 done — `/status` fully works).**
