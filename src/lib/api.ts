@@ -16,11 +16,19 @@ export function getDashboard(token: string, fy?: string) {
 
 export function getSubmissions(
   token: string,
-  opts: { page?: number; limit?: number; q?: string; status?: string; type?: string }
+  opts: {
+    page?: number; limit?: number; q?: string; status?: string; type?: string;
+    project?: string; from?: string; to?: string; min?: string; max?: string;
+    sort?: string; dir?: string; fy?: string;
+  }
 ) {
   return fetchAppsScript<SubmissionsResponse>("submissions", {
     token,
-    params: { page: opts.page, limit: opts.limit, q: opts.q, status: opts.status, type: opts.type },
+    params: {
+      page: opts.page, limit: opts.limit, q: opts.q, status: opts.status, type: opts.type,
+      project: opts.project, from: opts.from, to: opts.to, min: opts.min, max: opts.max,
+      sort: opts.sort, dir: opts.dir, fy: opts.fy,
+    },
     revalidate: 180,
     tags: ["submissions"],
   });

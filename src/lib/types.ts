@@ -43,6 +43,14 @@ export interface Lists {
   selfServiceVisibleFields: string[];
 }
 
+export interface AdvancePerson { person: string; amount: number; amountDisplay: string; count: number; }
+export interface AdvancesSummary {
+  outstandingTotal: number;
+  outstandingTotalDisplay: string;
+  count: number;
+  byPerson: AdvancePerson[];
+}
+
 export interface DashboardData {
   ok: boolean;
   fiscalYear: string;
@@ -54,6 +62,7 @@ export interface DashboardData {
   activity: ActivityEntry[];
   reconciliation: ReconciliationSummary;
   readyToMoveCount: number;
+  advances: AdvancesSummary;
   lists: Lists;
 }
 
@@ -62,8 +71,13 @@ export interface SubmissionRecord {
   amount: number; amountDisplay: string; status: string; project: string; crNumber: string;
   date: string; dateTs: number; source: string;
 }
+export type SortDir = "asc" | "desc";
+export type SubmissionSort = "date" | "name" | "vendor" | "amount" | "project" | "status" | "type";
+
 export interface SubmissionsResponse {
   ok: boolean; page: number; limit: number; total: number; totalPages: number; records: SubmissionRecord[];
+  sort: SubmissionSort; dir: SortDir; fyScope: string;
+  statusOptions: string[]; projectOptions: string[];
 }
 
 export interface StatusRecord {
