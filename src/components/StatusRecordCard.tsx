@@ -48,7 +48,7 @@ export function StatusRecordCard({ record, highlight = false }: { record: Status
       <ProgressBar progress={progress} />
 
       {record.rejectionReason && (
-        <div className="mt-2 rounded-md border border-danger/30 p-2 text-sm" style={{ background: "rgba(248,113,113,0.1)" }}>
+        <div className="mt-2 rounded-md p-2 text-sm" style={{ background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.3)" }}>
           <strong>Rejection reason:</strong> {record.rejectionReason}
         </div>
       )}
