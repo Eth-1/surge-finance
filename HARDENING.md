@@ -61,6 +61,23 @@ Every stress-test resolution from Part 8, mapped to the file/function that imple
 
 ---
 
-**Status: all V2.2 hardening items implemented.** Backend = 26 `.gs` files (incl.
-`SmokeTest.gs`); frontend = Next.js App Router with 6 routes + auth/health/checksum/
-revalidate API routes.
+## Post-V2.2 audit-improvement pass
+
+| ID | Item | Implementation |
+|---|---|---|
+| **A-1** | Mobile navigation | `NavBar.tsx` hamburger + dropdown (`md:hidden`). |
+| **A-2/A-4/B-5** | Table readability + accents + border fix | `SubmissionsTable.tsx` (hover, `tabular-nums`, truncation, status left-accent); `StatusRecordCard.tsx` inline border. |
+| **A-3** | Per-route loading skeletons | `status|submissions|reports|year-end/loading.tsx`. |
+| **B-1** | Dashboard FY selector | `FySelector.tsx` → `dashboard?fy=`; FY-aware `AutoRefresh` + checksum route. |
+| **B-2** | CSV export | `lib/csv.ts`, `/api/submissions/export`, `ExportReportButton.tsx`. |
+| **B-4 / C-1** | Submissions status filter ↔ data | `handleSubmissions_` returns distinct `statusOptions`/`projectOptions`. |
+| **C-2/C-3** | Missing boundaries | `status|budget-impact/error.tsx`, root `not-found.tsx`. |
+| **D-1** | Sequential fetch removed | submissions page no longer calls `getDashboard` for options. |
+| **D-2** | Unbounded submissions scan | `_buildAllSubmissions_(fy)` FY-scoped + 30s CacheService cache. |
+| **F-1 / E-2** | Sortable + filterable submissions | server `sort`/`dir` + project/date/amount params; clickable headers. |
+| **F-2** | Sortable report By-Status table | `ByStatusTable.tsx`. |
+| **E-1** | Personal advances ("paid before SFSS") | `Advanced By` column (Expenses+Archive); `_computeAdvances_` + alert (`Dashboard.gs`); `AdvancesSection.tsx`. Settles when the linked CR is Distributed. |
+
+**Status: all V2.2 hardening items + the approved audit improvements are implemented.**
+Backend = `/sheets/*.gs`; frontend = Next.js App Router. Denied in audit: E-3 (separate
+Budgets/Grants/Reconciliation web views).

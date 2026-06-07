@@ -11,7 +11,8 @@
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(lib\\): submissions sort/filter params + distinct options, advances types, CSV export util \\(F-1, B-2, E-1\\) *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): mobile nav menu, not-found page, status/budget-impact error boundaries, per-route loading skeletons \\(A-1, C-2, C-3, A-3\\) *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): submissions sortable headers + project/date/amount filters + FY scope + CSV export + row accents/readability; drop extra dashboard call; A-4 border fix \\(F-1, A-2, A-4, A-5, B-2, B-5, C-1, D-1, E-2\\) *)",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): dashboard FY selector + advances section \\(FY-aware auto-refresh\\), reports sortable By-Status + CSV export + helper text \\(B-1, E-1, B-2, B-3, F-2\\) *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): dashboard FY selector + advances section \\(FY-aware auto-refresh\\), reports sortable By-Status + CSV export + helper text \\(B-1, E-1, B-2, B-3, F-2\\) *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: rewrite SETUP.md \\(numbered, menu paths, GitHub+Vercel, troubleshooting, advance workflow\\), add README, document audit additions in HARDENING \\(G, E-1\\) *)"
     ]
   }
 }
