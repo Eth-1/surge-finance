@@ -1,4 +1,4 @@
-import { LayoutDashboard, ReceiptText, FileBarChart3, CalendarCheck, type LucideIcon } from "lucide-react";
+import { LayoutDashboard, ReceiptText, BarChart3, CalendarCheck, type LucideIcon } from "lucide-react";
 
 export interface NavItem {
   href: string;
@@ -10,7 +10,7 @@ export interface NavItem {
 export const FINANCE_NAV: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/submissions", label: "Submissions", icon: ReceiptText },
-  { href: "/reports", label: "Reports", icon: FileBarChart3 },
+  { href: "/reports", label: "Reports", icon: BarChart3 },
   { href: "/year-end", label: "Year-End", icon: CalendarCheck },
 ];
 

@@ -38,7 +38,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       if (v === "light" || v === "dark" || v === "system") stored = v;
     } catch {}
     setModeState(stored);
-    setResolved((document.documentElement.getAttribute("data-theme") as Resolved) || apply(stored));
+    const current = document.documentElement.getAttribute("data-theme");
+    setResolved(current === "light" || current === "dark" ? current : apply(stored));
   }, []);
 
   // When in system mode, follow OS changes live.

@@ -24,7 +24,12 @@
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(status\\): Chunk 3 — public '\\\\''track your reimbursement'\\\\'' redesign *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(dashboard\\): Chunk 4 — attention-first redesign *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(submissions\\): Chunk 5 — mobile card view + polished table *)",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(polish\\): Chunk 6 — auth, year-end, reports, health *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(polish\\): Chunk 6 — auth, year-end, reports, health *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://registry.npmjs.org/lucide-react/0.439.0)",
+      "Bash(curl -s https://registry.npmjs.org/lucide-react/latest)",
+      "Bash(curl -s https://registry.npmjs.org/lucide-react/0.439.0)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'fix\\(build\\): use valid lucide icon \\(BarChart3\\) + remove unsafe theme cast *)",
+      "Bash(git rev-list *)"
     ]
   }
 }
