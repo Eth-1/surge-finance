@@ -69,18 +69,15 @@ export default async function StatusPage({
   return (
     <div className="mx-auto max-w-3xl">
       {/* Hero */}
-      <section className="relative mb-6 overflow-hidden rounded-xl">
-        <div className="brand-glow pointer-events-none absolute inset-x-0 -top-10 h-40" aria-hidden />
-        <div className="relative">
-          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Track your reimbursement</h1>
-          <p className="muted mt-1 text-sm">
-            Submit a receipt or mileage claim, then check where it is in the process — anytime, from your phone.
-          </p>
+      <section className="mb-6">
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Track your reimbursement</h1>
+        <p className="muted mt-1 text-sm">
+          Submit a receipt or mileage claim, then check where it is in the process.
+        </p>
 
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <SubmitCard href={RECEIPT_FORM_URL} icon={Receipt} title="Submit a Receipt" sub="Reimbursement for a purchase" />
-            <SubmitCard href={MILEAGE_FORM_URL} icon={Car} title="Submit Mileage" sub="Reimbursement for driving" />
-          </div>
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <SubmitCard href={RECEIPT_FORM_URL} icon={Receipt} title="Submit a Receipt" sub="Reimbursement for a purchase" />
+          <SubmitCard href={MILEAGE_FORM_URL} icon={Car} title="Submit Mileage" sub="Reimbursement for driving" />
         </div>
       </section>
 

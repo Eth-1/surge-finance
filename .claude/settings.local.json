@@ -29,7 +29,8 @@
       "Bash(curl -s https://registry.npmjs.org/lucide-react/latest)",
       "Bash(curl -s https://registry.npmjs.org/lucide-react/0.439.0)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'fix\\(build\\): use valid lucide icon \\(BarChart3\\) + remove unsafe theme cast *)",
-      "Bash(git rev-list *)"
+      "Bash(git rev-list *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'fix\\(status\\): drop hero glow artifact + cheesy copy; remember last email 14d *)"
     ]
   }
 }
