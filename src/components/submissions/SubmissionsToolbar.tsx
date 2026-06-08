@@ -3,6 +3,16 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Download, SlidersHorizontal, X } from "lucide-react";
+
+const SORTS: { value: string; label: string }[] = [
+  { value: "date:desc", label: "Newest first" },
+  { value: "date:asc", label: "Oldest first" },
+  { value: "amount:desc", label: "Amount (high→low)" },
+  { value: "amount:asc", label: "Amount (low→high)" },
+  { value: "name:asc", label: "Name (A→Z)" },
+  { value: "status:asc", label: "Status" },
+];
 
 /**
  * Search + filters for /submissions (§4.5c, F-1, B-2, B-4). URL-param driven.
@@ -36,6 +46,16 @@ export function SubmissionsToolbar({
     params.delete("page");
     router.replace(`/submissions?${params.toString()}`);
   }
+
+  function setSort(value: string) {
+    const [field, dir] = value.split(":");
+    const params = new URLSearchParams(Array.from(sp.entries()));
+    params.set("sort", field);
+    params.set("dir", dir);
+    params.delete("page");
+    router.replace(`/submissions?${params.toString()}`);
+  }
+  const sortValue = `${sp.get("sort") || "date"}:${sp.get("dir") || "desc"}`;
 
   // Debounce free-text inputs (search + amount range).
   useEffect(() => {
@@ -78,14 +98,25 @@ export function SubmissionsToolbar({
           <option value="">{fyScope === "all" ? "Current FY" : fyScope}</option>
           <option value="all">All years</option>
         </select>
-        <a href={exportHref} className="btn btn-ghost whitespace-nowrap" download>⬇ Export CSV</a>
+        <a href={exportHref} className="btn btn-ghost gap-1.5 whitespace-nowrap" download><Download size={15} /> Export</a>
       </div>
 
-      <div className="flex items-center gap-3 text-sm">
-        <button className="text-primary" onClick={() => setShowMore((v) => !v)}>
-          {showMore ? "Hide filters ▲" : "More filters ▼"}
+      <div className="flex flex-wrap items-center gap-3 text-sm">
+        <button className="inline-flex items-center gap-1.5 text-primary hover:underline" onClick={() => setShowMore((v) => !v)}>
+          <SlidersHorizontal size={14} /> {showMore ? "Hide filters" : "More filters"}
         </button>
-        {anyFilter && <Link href="/submissions" className="text-text-secondary hover:text-text">Clear all</Link>}
+        {/* Sort — works on mobile (desktop also sorts via column headers) */}
+        <label className="ml-auto inline-flex items-center gap-2 text-text-secondary">
+          <span className="hidden sm:inline">Sort</span>
+          <select className="input w-auto py-1 text-sm" value={sortValue} onChange={(e) => setSort(e.target.value)} aria-label="Sort submissions">
+            {SORTS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
+          </select>
+        </label>
+        {anyFilter && (
+          <Link href="/submissions" className="inline-flex items-center gap-1 text-text-secondary hover:text-text">
+            <X size={14} /> Clear
+          </Link>
+        )}
       </div>
 
       {showMore && (

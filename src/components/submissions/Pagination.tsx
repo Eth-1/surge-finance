@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /** URL-param pagination (?page=N), preserving the active filters. */
 export function Pagination({
@@ -24,15 +25,15 @@ export function Pagination({
   return (
     <div className="mt-4 flex items-center justify-center gap-3 text-sm">
       {page > 1 ? (
-        <Link className="btn btn-ghost px-3 py-1" href={href(page - 1)}>← Prev</Link>
+        <Link className="btn btn-ghost gap-1 px-3 py-1" href={href(page - 1)}><ChevronLeft size={15} /> Prev</Link>
       ) : (
-        <span className="btn btn-ghost px-3 py-1 opacity-50">← Prev</span>
+        <span className="btn btn-ghost gap-1 px-3 py-1 opacity-50"><ChevronLeft size={15} /> Prev</span>
       )}
-      <span className="muted">Page {page} of {totalPages}</span>
+      <span className="muted tabular-nums">Page {page} of {totalPages}</span>
       {page < totalPages ? (
-        <Link className="btn btn-ghost px-3 py-1" href={href(page + 1)}>Next →</Link>
+        <Link className="btn btn-ghost gap-1 px-3 py-1" href={href(page + 1)}>Next <ChevronRight size={15} /></Link>
       ) : (
-        <span className="btn btn-ghost px-3 py-1 opacity-50">Next →</span>
+        <span className="btn btn-ghost gap-1 px-3 py-1 opacity-50">Next <ChevronRight size={15} /></span>
       )}
     </div>
   );
