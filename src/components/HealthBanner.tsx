@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { WifiOff } from "lucide-react";
 
 /**
  * Connection monitor (C4 / §6.1). Calls /api/health on mount; if it fails, a
@@ -31,7 +32,7 @@ export function HealthBanner() {
       className="no-print mb-4 flex items-center justify-between rounded-md px-4 py-2 text-sm"
       style={{ background: "rgba(248,113,113,0.12)", color: "var(--color-danger)" }}
     >
-      <span>⚠️ Unable to connect to data source — displaying cached data.</span>
+      <span className="inline-flex items-center gap-2"><WifiOff size={15} /> Unable to connect to data source — displaying cached data.</span>
       <button className="btn btn-ghost px-3 py-1" onClick={check}>
         Retry
       </button>

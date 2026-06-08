@@ -1,5 +1,6 @@
 "use client";
 
+import { Download } from "lucide-react";
 import type { ReportResponse } from "@/lib/types";
 import { toCsv, downloadCsv } from "@/lib/csv";
 
@@ -14,6 +15,6 @@ export function ExportReportButton({ report }: { report: ReportResponse }) {
     downloadCsv(`report-${report.type}-${new Date().toISOString().slice(0, 10)}.csv`, csv);
   }
   return (
-    <button className="btn btn-ghost no-print" onClick={exportCsv}>⬇ Export CSV</button>
+    <button className="btn btn-ghost no-print gap-1.5" onClick={exportCsv}><Download size={15} /> Export CSV</button>
   );
 }
