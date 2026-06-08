@@ -34,8 +34,8 @@ function readThemeColors() {
 }
 
 export function ExpenseCharts({ charts }: { charts: Charts }) {
-  const { theme } = useTheme(); // recompute colours on theme switch
-  const c = useMemo(() => readThemeColors(), [theme]);
+  const { resolved } = useTheme(); // recompute colours on theme switch
+  const c = useMemo(() => readThemeColors(), [resolved]);
 
   const doughnutOpts = useMemo(
     () => ({

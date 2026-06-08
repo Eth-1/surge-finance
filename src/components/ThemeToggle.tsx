@@ -1,17 +1,22 @@
 "use client";
 
+import { Sun, Moon, Monitor } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 
+/** Cycles system → light → dark. Shows the current mode's icon. */
 export function ThemeToggle() {
-  const { theme, toggle } = useTheme();
+  const { mode, cycle } = useTheme();
+  const Icon = mode === "system" ? Monitor : mode === "light" ? Sun : Moon;
+  const next = mode === "system" ? "light" : mode === "light" ? "dark" : "system";
+
   return (
     <button
-      onClick={toggle}
-      aria-label="Toggle theme"
-      title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      className="btn btn-ghost px-2 py-1 text-base"
+      onClick={cycle}
+      aria-label={`Theme: ${mode}. Switch to ${next}.`}
+      title={`Theme: ${mode} (click for ${next})`}
+      className="btn btn-ghost grid h-9 w-9 place-items-center p-0"
     >
-      {theme === "dark" ? "☀️" : "🌙"}
+      <Icon size={16} />
     </button>
   );
 }

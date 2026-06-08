@@ -18,7 +18,9 @@
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: mark audit-improvement pass complete in PLAN tracker *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(status\\): submit-form buttons, summary chips + sort + filter + CSV export, FAQ, meta fields \\(CR#/Payment/Purchase/Submitted\\), email-aware copy link, redesigned non-clipping progress bar, entrance animations, fix stuck '\\\\''Checking…'\\\\'' via useTransition *)",
       "Bash(git -c user.name=\"Claude\" -c user.email=\"noreply@anthropic.com\" commit -q --allow-empty -m \"placeholder\")",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(design\\): Chunk 1 — design foundation *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(design\\): Chunk 1 — design foundation *)",
+      "Bash(git rm *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(shell\\): Chunk 2 — app shell, IA, ⌘K, toasts, system theme *)"
     ]
   }
 }
