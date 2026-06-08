@@ -1,3 +1,4 @@
+import { HandCoins } from "lucide-react";
 import type { AdvancesSummary } from "@/lib/types";
 
 /**
@@ -10,8 +11,8 @@ export function AdvancesSection({ advances }: { advances: AdvancesSummary }) {
   return (
     <div className="surge-card">
       <div className="mb-2 flex items-baseline justify-between">
-        <p className="section-title">Personal Advances (owed back)</p>
-        {total > 0 && <span className="font-semibold text-warning">{advances.outstandingTotalDisplay}</span>}
+        <p className="section-title flex items-center gap-1.5"><HandCoins size={14} /> Personal Advances (owed back)</p>
+        {total > 0 && <span className="font-semibold tabular-nums text-warning">{advances.outstandingTotalDisplay}</span>}
       </div>
 
       {total <= 0 ? (

@@ -34,18 +34,14 @@ export default async function DashboardPage({
     <div className="space-y-6">
       <HealthBanner />
 
-      <header className="flex flex-wrap items-center justify-between gap-2">
-        <div>
-          <h1 className="text-xl font-semibold">Finance Dashboard</h1>
-          <p className="muted text-sm">{data.fiscalYear}</p>
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3 text-sm">
+          <span className="font-medium text-text-secondary">{data.fiscalYear}</span>
+          <span className="muted inline-flex items-center gap-1.5">
+            <span className="dot-live" /> Updated {relativeTime(data.lastRefresh)}
+          </span>
         </div>
-        <div className="flex items-center gap-3">
-          <FySelector />
-          <div className="flex items-center gap-2 text-xs text-text-muted">
-            <span className="dot-live" />
-            <span>Updated {relativeTime(data.lastRefresh)}</span>
-          </div>
-        </div>
+        <FySelector />
       </header>
 
       <SectionBoundary label="KPIs">
