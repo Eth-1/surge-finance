@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Receipt, Car, ArrowUpRight } from "lucide-react";
 import { getStatus } from "@/lib/api";
 import { StatusLookupForm } from "@/components/StatusLookupForm";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -7,7 +8,22 @@ import { FaqSection } from "@/components/status/FaqSection";
 import { RECEIPT_FORM_URL, MILEAGE_FORM_URL } from "@/lib/forms";
 import type { StatusResponse } from "@/lib/types";
 
-export const metadata = { title: "Check Status — Surge Finance" };
+export const metadata = { title: "Check Status" };
+
+function SubmitCard({ href, icon: Icon, title, sub }: { href: string; icon: typeof Receipt; title: string; sub: string }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="surge-card surge-card-hover flex items-center gap-3">
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-gradient text-white">
+        <Icon size={20} />
+      </span>
+      <div className="min-w-0">
+        <div className="font-medium text-text">{title}</div>
+        <div className="muted truncate text-xs">{sub}</div>
+      </div>
+      <ArrowUpRight size={16} className="ml-auto shrink-0 text-text-muted" />
+    </a>
+  );
+}
 
 export default async function StatusPage({
   searchParams,
@@ -17,23 +33,9 @@ export default async function StatusPage({
   const email = (searchParams?.email ?? "").toString().trim().toLowerCase();
   const id = (searchParams?.id ?? "").toString().trim();
 
-  let body: React.ReactNode;
+  let body: React.ReactNode = null;
 
-  if (!email) {
-    body = id ? (
-      <EmptyState
-        icon="🔗"
-        title="Enter your email to view this record"
-        message="This shared link points to a specific submission. Enter the email used on the reimbursement form to view it."
-      />
-    ) : (
-      <EmptyState
-        icon="🔎"
-        title="Check your reimbursement status"
-        message="Enter the email you used on the reimbursement form to see your receipt and mileage submissions."
-      />
-    );
-  } else {
+  if (email) {
     let res: StatusResponse;
     try {
       res = await getStatus(email, id);
@@ -48,9 +50,7 @@ export default async function StatusPage({
     } else if (res.error) {
       body = (
         <EmptyState icon="⚠️" title="Unable to check status right now." message="Please try again in a few minutes.">
-          <Link className="btn btn-ghost" href={`/status?email=${encodeURIComponent(email)}${id ? `&id=${id}` : ""}`}>
-            Retry
-          </Link>
+          <Link className="btn btn-ghost" href={`/status?email=${encodeURIComponent(email)}${id ? `&id=${id}` : ""}`}>Retry</Link>
         </EmptyState>
       );
     } else if (!res.records || res.records.length === 0) {
@@ -68,24 +68,31 @@ export default async function StatusPage({
 
   return (
     <div className="mx-auto max-w-3xl">
-      <header className="mb-4">
-        <h1 className="text-xl font-semibold">Reimbursement Status</h1>
-        <p className="muted text-sm">Submit a new request, or look up your receipt &amp; mileage submissions by email.</p>
-      </header>
+      {/* Hero */}
+      <section className="relative mb-6 overflow-hidden rounded-xl">
+        <div className="brand-glow pointer-events-none absolute inset-x-0 -top-10 h-40" aria-hidden />
+        <div className="relative">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Track your reimbursement</h1>
+          <p className="muted mt-1 text-sm">
+            Submit a receipt or mileage claim, then check where it is in the process — anytime, from your phone.
+          </p>
 
-      {/* Submit buttons → Google Forms */}
-      <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <a href={RECEIPT_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary surge-card-hover justify-center py-3">
-          🧾 Submit a Receipt
-        </a>
-        <a href={MILEAGE_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost surge-card-hover justify-center py-3">
-          🚗 Submit Mileage
-        </a>
-      </div>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <SubmitCard href={RECEIPT_FORM_URL} icon={Receipt} title="Submit a Receipt" sub="Reimbursement for a purchase" />
+            <SubmitCard href={MILEAGE_FORM_URL} icon={Car} title="Submit Mileage" sub="Reimbursement for driving" />
+          </div>
+        </div>
+      </section>
 
+      {/* Lookup */}
       <div className="surge-card mb-6">
+        <p className="section-title mb-2">Check your status</p>
         <StatusLookupForm defaultEmail={email} preserveId={id} />
+        {!email && id && (
+          <p className="muted mt-2 text-xs">This link points to a specific submission — enter your email to view it.</p>
+        )}
       </div>
+
       {body}
 
       <FaqSection />

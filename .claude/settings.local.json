@@ -20,7 +20,8 @@
       "Bash(git -c user.name=\"Claude\" -c user.email=\"noreply@anthropic.com\" commit -q --allow-empty -m \"placeholder\")",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(design\\): Chunk 1 — design foundation *)",
       "Bash(git rm *)",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(shell\\): Chunk 2 — app shell, IA, ⌘K, toasts, system theme *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(shell\\): Chunk 2 — app shell, IA, ⌘K, toasts, system theme *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(status\\): Chunk 3 — public '\\\\''track your reimbursement'\\\\'' redesign *)"
     ]
   }
 }

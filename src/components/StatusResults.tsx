@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { Download } from "lucide-react";
 import type { StatusRecord } from "@/lib/types";
 import { StatusRecordCard } from "@/components/StatusRecordCard";
 import { statusBucket, type StatusBucket } from "@/lib/format";
@@ -110,8 +111,8 @@ export function StatusResults({
             <option value="amount-asc">Amount (low→high)</option>
             <option value="status">Status</option>
           </select>
-          <button className="btn btn-ghost py-1 text-sm" onClick={exportCsv} disabled={visible.length === 0}>
-            ⬇ Export
+          <button className="btn btn-ghost gap-1.5 py-1 text-sm" onClick={exportCsv} disabled={visible.length === 0}>
+            <Download size={14} /> Export
           </button>
         </div>
       </div>

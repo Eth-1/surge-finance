@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { Paperclip, Link2, Check } from "lucide-react";
 import type { StatusRecord } from "@/lib/types";
 import { getProgress } from "@/lib/format";
 import { StatusBadge, TypeBadge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ProgressBar";
+import { useToast } from "@/components/ui/Toast";
 
 /** Left-accent colour by status for quick scanning. */
 function accentFor(status: string): string {
@@ -37,6 +39,7 @@ export function StatusRecordCard({
 }) {
   const [copied, setCopied] = useState(false);
   const progress = getProgress(record);
+  const { toast } = useToast();
 
   function copyLink() {
     // Direct share link — includes the email so the recipient isn't re-prompted.
@@ -46,6 +49,7 @@ export function StatusRecordCard({
     const url = `${window.location.origin}/status?${params.toString()}`;
     navigator.clipboard?.writeText(url).then(() => {
       setCopied(true);
+      toast("Link copied to clipboard");
       setTimeout(() => setCopied(false), 1500);
     });
   }
@@ -103,16 +107,17 @@ export function StatusRecordCard({
       <div className="mt-3 flex items-center justify-between text-xs">
         <div className="flex items-center gap-3">
           {record.receiptUrl ? (
-            <a href={record.receiptUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              📎 View Receipt
+            <a href={record.receiptUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
+              <Paperclip size={13} /> View Receipt
             </a>
           ) : (
-            <span className="muted">📎 No receipt</span>
+            <span className="muted inline-flex items-center gap-1"><Paperclip size={13} /> No receipt</span>
           )}
           {record.paymentMethod && <span className="muted">{record.paymentMethod}</span>}
         </div>
-        <button onClick={copyLink} className="text-text-secondary transition-colors hover:text-text" title="Copy a direct link to this record">
-          {copied ? "✅ Copied" : "🔗 Copy link"}
+        <button onClick={copyLink} className="inline-flex items-center gap-1 text-text-secondary transition-colors hover:text-text" title="Copy a direct link to this record">
+          {copied ? <Check size={13} /> : <Link2 size={13} />}
+          {copied ? "Copied" : "Copy link"}
         </button>
       </div>
     </div>

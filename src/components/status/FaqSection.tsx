@@ -1,3 +1,5 @@
+import { ChevronRight } from "lucide-react";
+
 /** Collapsible FAQ shown at the bottom of /status. Native <details> (accessible). */
 
 const FAQS: { q: string; a: React.ReactNode }[] = [
@@ -64,7 +66,7 @@ export function FaqSection() {
           <details key={i} className="surge-card group cursor-pointer py-3">
             <summary className="flex list-none items-center justify-between gap-2 font-medium text-text marker:hidden">
               <span>{f.q}</span>
-              <span className="text-text-muted transition-transform duration-200 group-open:rotate-90">▸</span>
+              <ChevronRight size={16} className="shrink-0 text-text-muted transition-transform duration-200 group-open:rotate-90" />
             </summary>
             <div className="muted mt-2 text-sm leading-relaxed">{f.a}</div>
           </details>
