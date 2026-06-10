@@ -31,6 +31,7 @@ const config: Config = {
         action: "var(--color-action)",
         ring: "var(--color-ring)",
         "card-bg": "var(--card-bg)",
+        "on-primary": "var(--color-on-primary)",
       },
       backgroundImage: {
         "brand-gradient": "var(--gradient-brand)",
@@ -50,6 +51,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       transitionTimingFunction: { surge: "cubic-bezier(0.4, 0, 0.2, 1)" },
