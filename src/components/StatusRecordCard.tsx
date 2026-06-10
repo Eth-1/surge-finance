@@ -94,12 +94,12 @@ export function StatusRecordCard({
       </div>
 
       {record.rejectionReason && (
-        <div className="mt-3 rounded-md p-2 text-sm" style={{ background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.3)" }}>
+        <div className="callout-danger mt-3 p-2 text-sm">
           <strong>Rejection reason:</strong> {record.rejectionReason}
         </div>
       )}
       {record.reviewNotes && (
-        <div className="mt-3 rounded-md p-2 text-sm" style={{ background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.3)" }}>
+        <div className="callout-danger mt-3 p-2 text-sm">
           <strong>Reviewer notes:</strong> {record.reviewNotes}
         </div>
       )}

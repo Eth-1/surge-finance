@@ -18,10 +18,16 @@ import { ChartCard } from "./ChartCard";
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-// 15-colour palette (§3.4, retained) — data-viz series colours, not theme tokens.
-const PALETTE = [
-  "#6366f1", "#06b6d4", "#34d399", "#fbbf24", "#f87171", "#60a5fa", "#a78bfa",
-  "#f472b6", "#fb923c", "#2dd4bf", "#facc15", "#4ade80", "#e879f9", "#38bdf8", "#fca5a5",
+// Paper Ledger data-viz series (ARCHITECTURE §5.4) — muted, earthy; one set per
+// theme so charcoal segments never vanish on the dark "ink" background.
+// (Data-viz series are the sanctioned exception to the no-hex-in-components rule.)
+const PAPER_PALETTE = [
+  "#32302F", "#EBCB8B", "#7A8B7F", "#B08968", "#5F6C7B", "#BDC3C7",
+  "#8C6D2F", "#A4453D", "#3E5F8A", "#6B6661", "#9C8F7F", "#4A5A50",
+];
+const INK_PALETTE = [
+  "#E8E3D9", "#D9B779", "#9FB0A3", "#C9A887", "#93A3B5", "#8E959C",
+  "#E2C794", "#C97F77", "#89A3C4", "#A8A29B", "#BDB2A2", "#8FA396",
 ];
 
 function readThemeColors() {
@@ -36,13 +42,15 @@ function readThemeColors() {
 export function ExpenseCharts({ charts }: { charts: Charts }) {
   const { resolved } = useTheme(); // recompute colours on theme switch
   const c = useMemo(() => readThemeColors(), [resolved]);
+  const palette = resolved === "dark" ? INK_PALETTE : PAPER_PALETTE;
 
   const doughnutOpts = useMemo(
     () => ({
       responsive: true,
       maintainAspectRatio: false,
+      cutout: "70%",
       plugins: {
-        legend: { position: "right" as const, labels: { color: c.text, boxWidth: 12, font: { size: 11 } } },
+        legend: { position: "right" as const, labels: { color: c.text, boxWidth: 10, font: { size: 11 } } },
         tooltip: { callbacks: { label: (ctx: any) => `${ctx.label}: ${formatCAD(ctx.parsed)}` } },
       },
     }),
@@ -91,23 +99,23 @@ export function ExpenseCharts({ charts }: { charts: Charts }) {
 
   const pie = (pairs: { label: string; value: number }[]) => ({
     labels: pairs.map((p) => p.label),
-    datasets: [{ data: pairs.map((p) => p.value), backgroundColor: PALETTE, borderWidth: 0 }],
+    datasets: [{ data: pairs.map((p) => p.value), backgroundColor: palette, borderWidth: 0 }],
   });
 
   const monthly = useMemo(
     () => ({
       labels: charts.monthly.map((p) => p.label),
-      datasets: [{ label: "Spend", data: charts.monthly.map((p) => p.value), backgroundColor: PALETTE[0], borderRadius: 4 }],
+      datasets: [{ label: "Spend", data: charts.monthly.map((p) => p.value), backgroundColor: palette[0], borderRadius: 2 }],
     }),
-    [charts.monthly]
+    [charts.monthly, palette]
   );
 
   const top = useMemo(
     () => ({
       labels: charts.topSubmitters.map((p) => p.label),
-      datasets: [{ label: "Total", data: charts.topSubmitters.map((p) => p.value), backgroundColor: PALETTE[1], borderRadius: 4 }],
+      datasets: [{ label: "Total", data: charts.topSubmitters.map((p) => p.value), backgroundColor: palette[1], borderRadius: 2 }],
     }),
-    [charts.topSubmitters]
+    [charts.topSubmitters, palette]
   );
 
   return (

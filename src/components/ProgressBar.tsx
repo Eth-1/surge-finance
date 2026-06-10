@@ -11,8 +11,7 @@ import type { Progress } from "@/lib/format";
 export function ProgressBar({ progress }: { progress: Progress }) {
   if (progress.rejected) {
     return (
-      <div className="my-3 flex items-center gap-2 rounded-md px-3 py-2 text-sm"
-        style={{ background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.3)", color: "var(--color-danger)" }}>
+      <div className="callout-danger my-3 flex items-center gap-2 px-3 py-2 text-sm" style={{ color: "var(--color-danger)" }}>
         <span>✕</span><span className="font-medium">Rejected</span>
       </div>
     );

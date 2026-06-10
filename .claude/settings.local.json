@@ -37,7 +37,9 @@
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(gas\\): V3 loan tracker engine *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(gas\\): applyRichFormatting\\(\\) — readable conditional formatting everywhere *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): Liabilities module — advances + member loans on the dashboard *)",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(design\\): Paper Ledger tokens — editorial palette, serif display, kill-list *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(design\\): Paper Ledger tokens — editorial palette, serif display, kill-list *)",
+      "Bash(grep -v \"//\")",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): Paper Ledger conformance — editorial /status, charts, chrome *)"
     ]
   }
 }

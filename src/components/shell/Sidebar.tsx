@@ -32,7 +32,7 @@ export function Sidebar() {
                 (active ? "bg-surface-2 font-medium text-text" : "text-text-secondary hover:bg-surface-2 hover:text-text")
               }
             >
-              {active && <span className="absolute inset-y-1 left-0 w-[3px] rounded-full bg-brand-gradient" aria-hidden />}
+              {active && <span className="absolute inset-y-1 left-0 w-[2px] bg-primary-strong" aria-hidden />}
               <Icon size={18} className={active ? "text-primary" : ""} />
               {item.label}
             </Link>

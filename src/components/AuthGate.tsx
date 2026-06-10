@@ -37,9 +37,8 @@ export function AuthGate({ area = "this page" }: { area?: string }) {
   }
 
   return (
-    <div className="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-4">
-      <div className="brand-glow pointer-events-none absolute inset-x-0 top-0 h-48" aria-hidden />
-      <form onSubmit={submit} className="surge-card animate-scale-in relative w-full max-w-sm">
+    <div className="flex min-h-[70vh] items-center justify-center px-4">
+      <form onSubmit={submit} className="surge-card animate-scale-in w-full max-w-sm">
         <div className="mb-4 flex items-center justify-between">
           <Logo />
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-surface-2 text-text-secondary" aria-hidden>

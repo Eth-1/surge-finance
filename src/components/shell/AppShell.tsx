@@ -25,7 +25,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Sidebar />
           <div className="flex min-w-0 flex-1 flex-col">
             <TopBar />
-            <main id="main" className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-6 pb-24 md:pb-8">
+            <main id="main" className="mx-auto w-full max-w-[1100px] flex-1 px-4 py-6 pb-24 md:pb-8">
               {children}
             </main>
           </div>
@@ -40,7 +40,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <>
       <a href="#main" className="skip-link">Skip to content</a>
       <PublicBar />
-      <main id="main" className="mx-auto w-full max-w-3xl px-4 py-6">{children}</main>
+      <main id="main" className="mx-auto w-full max-w-[1100px] px-4 py-6">{children}</main>
     </>
   );
 }

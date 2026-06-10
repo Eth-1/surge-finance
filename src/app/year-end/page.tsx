@@ -36,7 +36,7 @@ export default async function YearEndPage() {
           <span className="text-sm font-semibold tabular-nums text-text-secondary">{done}/{total}</span>
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-surface-3">
-          <div className="h-2 rounded-full bg-brand-gradient transition-[width] duration-500" style={{ width: `${pct}%` }} />
+          <div className="h-2 rounded-full bg-primary-strong transition-[width] duration-500" style={{ width: `${pct}%` }} />
         </div>
       </div>
 
