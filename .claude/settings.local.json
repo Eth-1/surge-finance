@@ -35,7 +35,8 @@
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: add Finance Coordinator Onboarding Guide \\(.docx\\) + generator *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: ARCHITECTURE.md — V3 blueprint \\(loan tracker + Paper Ledger redesign\\) *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(gas\\): V3 loan tracker engine *)",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(gas\\): applyRichFormatting\\(\\) — readable conditional formatting everywhere *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(gas\\): applyRichFormatting\\(\\) — readable conditional formatting everywhere *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): Liabilities module — advances + member loans on the dashboard *)"
     ]
   }
 }

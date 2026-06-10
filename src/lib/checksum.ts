@@ -10,6 +10,8 @@ export function dashboardChecksum(d: DashboardData): string {
   const pipe = d.pipeline.map((p) => `${p.status}:${p.count}:${p.total}`).join(",");
   return [
     k.totalExpenses, k.outstanding, k.activeCRs, k.totalGrants, k.avgGrantUtilization,
-    d.alerts.length, d.readyToMoveCount, pipe,
+    d.alerts.length, d.readyToMoveCount,
+    d.loans?.outstandingTotal ?? 0, d.loans?.overdueCount ?? 0,
+    pipe,
   ].join("|");
 }

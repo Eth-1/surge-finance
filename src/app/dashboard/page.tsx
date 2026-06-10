@@ -10,7 +10,7 @@ import { PipelineSection } from "@/components/dashboard/PipelineSection";
 import { ActivityFeed } from "@/components/dashboard/ActivityFeed";
 import { AutoRefresh } from "@/components/dashboard/AutoRefresh";
 import { FySelector } from "@/components/dashboard/FySelector";
-import { AdvancesSection } from "@/components/dashboard/AdvancesSection";
+import { LiabilitiesSection } from "@/components/dashboard/LiabilitiesSection";
 import { relativeTime } from "@/lib/format";
 import { dashboardChecksum } from "@/lib/checksum";
 import type { DashboardData } from "@/lib/types";
@@ -65,8 +65,8 @@ export default async function DashboardPage({
         </SectionBoundary>
       </div>
 
-      <SectionBoundary label="advances">
-        <AdvancesSection advances={data.advances} />
+      <SectionBoundary label="liabilities">
+        <LiabilitiesSection advances={data.advances} loans={data.loans} />
       </SectionBoundary>
 
     </div>

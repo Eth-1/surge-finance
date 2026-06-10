@@ -51,6 +51,17 @@ export interface AdvancesSummary {
   byPerson: AdvancePerson[];
 }
 
+export interface LoanLender { lender: string; amount: number; amountDisplay: string; count: number; }
+/** V3 — member loans to the club (additive; absent until the Apps Script update). */
+export interface LoansSummary {
+  outstandingTotal: number;
+  outstandingTotalDisplay: string;
+  count: number;
+  overdueCount: number;
+  readyToRepayCount: number;
+  byLender: LoanLender[];
+}
+
 export interface DashboardData {
   ok: boolean;
   fiscalYear: string;
@@ -63,6 +74,7 @@ export interface DashboardData {
   reconciliation: ReconciliationSummary;
   readyToMoveCount: number;
   advances: AdvancesSummary;
+  loans?: LoansSummary;   // optional: older GAS deployments don't return it
   lists: Lists;
 }
 
