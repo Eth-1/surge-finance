@@ -49,6 +49,7 @@ function dailyScheduledChecks() {
   _safeRun_('cleanOldAuditEntries', cleanOldAuditEntries);
   _safeRun_('refreshAllReceiptAges', refreshAllReceiptAges_);
   _safeRun_('refreshAllExpenseFiscalYears', refreshAllExpenseFiscalYears_);
+  _safeRun_('refreshLoanFollowUps', refreshLoanFollowUps);   // V3 overdue flags
   _safeRun_('scheduledRecalc', scheduledRecalc);   // also refresh aggregates daily
 }
 

@@ -24,6 +24,7 @@ function buildSurgeMenu_() {
     .addItem('Delete Selected Expense…', 'menuDeleteExpense')
     .addSeparator()
     .addItem('Refresh Dashboard Data', 'menuRefreshDashboard')
+    .addItem('Apply Rich Formatting', 'applyRichFormatting')
     .addSeparator()
     .addItem('Year-End Rollover…', 'menuYearEndRollover')
     .addItem('Archive Prior Years', 'menuArchivePriorYears')

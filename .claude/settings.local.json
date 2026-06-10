@@ -33,7 +33,8 @@
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'fix\\(status\\): drop hero glow artifact + cheesy copy; remember last email 14d *)",
       "PowerShell(& \"D:\\\\CLAUDE CODE - SFU Surge Finance System\\\\_gen_guide.ps1\")",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: add Finance Coordinator Onboarding Guide \\(.docx\\) + generator *)",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: ARCHITECTURE.md — V3 blueprint \\(loan tracker + Paper Ledger redesign\\) *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: ARCHITECTURE.md — V3 blueprint \\(loan tracker + Paper Ledger redesign\\) *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(gas\\): V3 loan tracker engine *)"
     ]
   }
 }

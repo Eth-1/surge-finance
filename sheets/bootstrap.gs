@@ -42,14 +42,15 @@ var BS_SHEETS = {
   DASHBOARD_DATA:     'Dashboard Data',
   FORM_RESPONSES:     'Form Responses 1',
   MILEAGE_RESPONSES:  'Form Responses 2',
-  ARCHIVE:            'Archive'
+  ARCHIVE:            'Archive',
+  LOANS:              'Loans'
 };
 
 /* Display order (§2 Sheet Registry) */
 var BS_SHEET_ORDER = [
   BS_SHEETS.SETTINGS, BS_SHEETS.APPROVAL_QUEUE, BS_SHEETS.MILEAGE_APPROVALS,
   BS_SHEETS.EXPENSES, BS_SHEETS.CR_TRACKER, BS_SHEETS.GRANTS, BS_SHEETS.BUDGETS,
-  BS_SHEETS.RECONCILIATION, BS_SHEETS.AUDIT_LOG, BS_SHEETS.DASHBOARD_DATA,
+  BS_SHEETS.LOANS, BS_SHEETS.RECONCILIATION, BS_SHEETS.AUDIT_LOG, BS_SHEETS.DASHBOARD_DATA,
   BS_SHEETS.FORM_RESPONSES, BS_SHEETS.MILEAGE_RESPONSES, BS_SHEETS.ARCHIVE
 ];
 
@@ -91,6 +92,7 @@ function buildAll() {
   buildCRTrackerSheet_(ss);           log.push('CR Tracker');
   buildGrantsSheet_(ss);              log.push('Grants');
   buildBudgetsSheet_(ss);             log.push('Budgets');
+  buildLoansSheet_(ss);               log.push('Loans');
   buildReconciliationSheet_(ss);      log.push('Reconciliation');
   buildAuditLogSheet_(ss);            log.push('Audit Log');
   buildDashboardDataSheet_(ss);       log.push('Dashboard Data');
@@ -691,6 +693,61 @@ function buildBudgetsSheet_(ss) {
 }
 
 /* ================================================================== *
+ * V3 — LOANS SHEET (14 cols) — member loans to the club              *
+ * ------------------------------------------------------------------ *
+ * Status (H) and the flag (M) are script-computed (Loans.gs); the     *
+ * status dropdown is a literal list (system semantics, not a Settings *
+ * list) with allowInvalid so script writes never red-flag.            *
+ * ================================================================== */
+function buildLoansSheet_(ss) {
+  var sh = getOrCreateSheet_(ss, BS_SHEETS.LOANS);
+  var headers = [
+    'Loan ID', 'Date Received', 'Lender Name', 'Lender Email', 'Amount (CAD)', 'Purpose',
+    'Linked CR #', 'Status', 'Amount Repaid (CAD)', 'Date Repaid', 'Repayment Method',
+    'Due Date', 'Follow-Up Flag', 'Notes'
+  ];
+  setHeaders_(sh, headers);
+  setHeaderColors_(sh, 1, 1, BS_COLOR.GRAY);    // A Loan ID (auto)
+  setHeaderColors_(sh, 2, 7, BS_COLOR.BLUE);    // B–G manual entry
+  setHeaderColors_(sh, 8, 8, BS_COLOR.GRAY);    // H Status (computed)
+  setHeaderColors_(sh, 9, 9, BS_COLOR.GREEN);   // I Amount Repaid (manual)
+  setHeaderColors_(sh, 10, 10, BS_COLOR.GRAY);  // J Date Repaid (auto)
+  setHeaderColors_(sh, 11, 12, BS_COLOR.GREEN); // K–L manual
+  setHeaderColors_(sh, 13, 13, BS_COLOR.GRAY);  // M Flag (computed)
+  setHeaderColors_(sh, 14, 14, BS_COLOR.GREEN); // N Notes
+
+  setColumnFormat_(sh, 2, 'MMM d, yyyy');   // B Date Received
+  setColumnFormat_(sh, 5, '$#,##0.00');     // E Amount
+  setColumnFormat_(sh, 9, '$#,##0.00');     // I Amount Repaid
+  setColumnFormat_(sh, 10, 'MMM d, yyyy');  // J Date Repaid
+  setColumnFormat_(sh, 12, 'MMM d, yyyy');  // L Due Date
+
+  applyListValidation_(sh, 8, ['Open', 'Partially Repaid', 'Repaid'], true);   // H
+  applyNamedListValidation_(ss, sh, 11, 'PaymentMethods', true);               // K
+
+  freezeAndHide_(sh, 1, null);
+  sh.setColumnWidth(6, 240);    // Purpose
+  sh.setColumnWidth(14, 240);   // Notes
+  Logger.log('Loans: 14 columns built.');
+}
+
+/**
+ * V3 migration for EXISTING workbooks — safe & non-destructive.
+ * (Never re-run buildAll() on a live sheet: it clears data. This only adds
+ * what V3 needs: the Loans sheet. The Dashboard Data 'loans' cache key is
+ * auto-created by refreshDashboardData on its next run.)
+ */
+function migrateToV3() {
+  var ss = SpreadsheetApp.getActive();
+  if (ss.getSheetByName(BS_SHEETS.LOANS)) {
+    ss.toast('V3 migration: Loans sheet already exists — nothing to do.', 'Surge Finance', 6);
+    return;
+  }
+  buildLoansSheet_(ss);
+  ss.toast('V3 migration complete: Loans sheet created. Optionally run applyRichFormatting().', 'Surge Finance', 8);
+}
+
+/* ================================================================== *
  * PHASE 1.10 — RECONCILIATION SHEET (two-section layout) §2.10        *
  * ------------------------------------------------------------------ *
  * §1 CR Reconciliation: title row 1, headers row 2, data row 3+.      *
@@ -790,7 +847,7 @@ function bsDashboardKeys_() {
     'lastRefresh', 'version', 'fiscalYear', 'kpis', 'chartByCategory', 'chartByProject',
     'chartByFundingSource', 'chartMonthly', 'chartTopSubmitters', 'pipeline', 'alerts',
     'activity', 'lists', 'reconciliationSummary', 'yearEndChecklist', 'readyToMoveCount',
-    'advances', 'health'
+    'advances', 'loans', 'health'
   ];
 }
 
@@ -926,7 +983,17 @@ function applyAllConditionalFormatting_(ss) {
     bsFormulaRule_(mi, 'A2:O1000', '=OR($L2="Approved",$L2="Moved to Expenses")', BS_FMT.GREEN_BG)
   ]);
 
-  Logger.log('Conditional formatting applied to 6 sheets.');
+  // ---- Loans (Status = col H, flag = col M) — V3 ----
+  var lo = ss.getSheetByName(BS_SHEETS.LOANS);
+  if (lo) {
+    lo.setConditionalFormatRules([
+      bsFormulaRule_(lo, 'A2:N1000', '=ISNUMBER(SEARCH("OVERDUE",$M2))', BS_FMT.RED_BG),
+      bsFormulaRule_(lo, 'A2:N1000', '=$H2="Repaid"', BS_FMT.GREEN_BG),
+      bsFormulaRule_(lo, 'A2:N1000', '=$H2="Partially Repaid"', BS_FMT.AMBER_BG)
+    ]);
+  }
+
+  Logger.log('Conditional formatting applied.');
 }
 
 /**

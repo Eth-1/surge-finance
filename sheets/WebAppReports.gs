@@ -32,6 +32,7 @@ function readDashboardFromCache_() {
     pipeline: getDashboardCache_('pipeline'), alerts: getDashboardCache_('alerts'),
     activity: getDashboardCache_('activity'), reconciliation: getDashboardCache_('reconciliationSummary'),
     readyToMoveCount: getDashboardCache_('readyToMoveCount'), advances: getDashboardCache_('advances'),
+    loans: getDashboardCache_('loans'),
     lists: getDashboardCache_('lists')
   };
 }

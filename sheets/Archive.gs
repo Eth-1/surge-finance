@@ -71,6 +71,21 @@ function computeYearEndChecklist_() {
   }
   out.push({ item: 'All budgets closed', count: buOpen, ok: buOpen === 0 });
 
+  // V3: member loans repaid (tolerates a pre-migration workbook with no Loans sheet).
+  var loansOpen = 0;
+  try {
+    var loSheet = getSs_().getSheetByName(SHEETS.LOANS);
+    if (loSheet && loSheet.getLastRow() >= 2) {
+      var loData = loSheet.getRange(2, 1, loSheet.getLastRow() - 1, COLS.LOAN.WIDTH).getValues();
+      for (var lo = 0; lo < loData.length; lo++) {
+        var loLender = String(loData[lo][COLS.LOAN.LENDER - 1] || '').trim();
+        if (!loLender && parseAmount(loData[lo][COLS.LOAN.AMOUNT - 1]) <= 0) { continue; }
+        if (String(loData[lo][COLS.LOAN.STATUS - 1] || '').trim() !== 'Repaid') { loansOpen++; }
+      }
+    }
+  } catch (loErr) {}
+  out.push({ item: 'All member loans repaid', count: loansOpen, ok: loansOpen === 0 });
+
   // Pending AQ items cleared.
   out.push(_countStatus_(SHEETS.APPROVAL_QUEUE, COLS.AQ.APPROVAL_STATUS, 'Pending', 'Pending AQ items cleared'));
   // Pending mileage cleared.

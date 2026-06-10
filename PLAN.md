@@ -369,10 +369,29 @@ Commit groups:
 - [x] G7 SETUP.md rewrite + README + HARDENING audit notes (G)
 - [x] G8 final summary
 
+## V3 EXECUTION (per ARCHITECTURE.md) — tracker
+
+- [ ] V3-1 GAS loan engine: Config/COLS, Loans.gs, bootstrap (sheet+order+cache key+CF+migrateToV3),
+      Triggers route, CR-Distributed hook, year-end item, Dashboard payload+alerts+cache,
+      WebAppReports cache read, TimeDriven daily flags, Menu item
+- [ ] V3-2 RichFormatting.gs — applyRichFormatting() one-time CF everywhere + menu entry
+- [ ] V3-3 Frontend loans: types (LoansSummary, optional), checksum, LiabilitiesSection
+      (replaces AdvancesSection), dashboard wiring
+- [ ] V3-4 Paper Ledger tokens: globals.css rewrite (paper/ink), tailwind (serif, on-primary),
+      layout fonts (Instrument Serif) + default theme light
+- [ ] V3-5 Component conformance: Logo, Sidebar rail, AppShell widths (1100), status editorial
+      hero + ScrollPath, callout classes (StatusRecordCard/ProgressBar), charts palette+cutout,
+      year-end bar
+- [ ] V3-6 Docs: SETUP upgrade steps + loans, HARDENING, onboarding guide regen, PLAN final
+- **Resume:** if interrupted, run `claude --continue`; pick up at the first unchecked item.
+  Icons verified for 0.439.0: PiggyBank/Banknote/Landmark/HandCoins/Scale/CircleDollarSign.
+  GAS loans contract: see ARCHITECTURE.md §2.4/§4.2–4.3. `loans` is OPTIONAL in DashboardData
+  (frontend must not crash before the Apps Script update).
+
 ## Current Session
 
-- **Status:** ✅ Audit-improvement pass COMPLETE — all approved items (A/B/C/D/F/G, E-1, E-2) implemented across 8 commits. E-3 denied (not built).
-- **Validation note:** `npm install && npm run build` not run here (no node in env) — run it locally to typecheck before deploy.
+- **Status:** V3 execution in progress (see tracker above).
+- **Validation note:** no node in env — Vercel builds on push; statically verify imports/icons.
 
 ### Resume notes (read before continuing)
 - **Phases 1–3 complete; Phase 4 in progress (4.1–4.9 done — `/status` fully works).**

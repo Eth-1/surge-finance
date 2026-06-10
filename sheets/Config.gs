@@ -28,7 +28,8 @@ var SHEETS = {
   DASHBOARD_DATA:    'Dashboard Data',
   FORM_RESPONSES:    'Form Responses 1',
   MILEAGE_RESPONSES: 'Form Responses 2',
-  ARCHIVE:           'Archive'
+  ARCHIVE:           'Archive',
+  LOANS:             'Loans'
 };
 
 /* 1-based column indices per sheet (§2). */
@@ -80,7 +81,12 @@ var COLS = {
     S2_LINKED_IDS: 6, S2_RECONCILED: 7, S2_NOTES: 8
   },
   AUDIT: { TIMESTAMP: 1, USER: 2, ACTION: 3, SHEET: 4, RECORD_ID: 5, FIELD: 6, OLD: 7, NEW: 8, DETAILS: 9, WIDTH: 9 },
-  SETTINGS: { SETTING: 1, VALUE: 2, DESC: 3, DEFAULT: 4, TYPE: 5 }
+  SETTINGS: { SETTING: 1, VALUE: 2, DESC: 3, DEFAULT: 4, TYPE: 5 },
+  LOAN: {
+    ID: 1, DATE_RECEIVED: 2, LENDER: 3, LENDER_EMAIL: 4, AMOUNT: 5, PURPOSE: 6,
+    LINKED_CR: 7, STATUS: 8, AMOUNT_REPAID: 9, DATE_REPAID: 10, REPAY_METHOD: 11,
+    DUE_DATE: 12, FOLLOWUP_FLAG: 13, NOTES: 14, WIDTH: 14
+  }
 };
 
 /* ------------------------------------------------------------------ *

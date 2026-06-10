@@ -70,6 +70,9 @@ function onSheetEdit(e) {
       case SHEETS.SETTINGS:
         withLock(function () { handleSettingsEdit_(e, info); });
         break;
+      case SHEETS.LOANS:
+        withLock(function () { handleLoansEdit_(e, info); });
+        break;
       default:
         break;   // other sheets: no onEdit behavior
     }

@@ -39,6 +39,7 @@ function dashboardPayload_(fyLabel) {
     for (var i = 0; i < all.length; i++) { if (_expRowFy_(all[i]) === fy) { fyRows.push(all[i]); } }
   }
   var advances = _computeAdvances_(fyRows);
+  var loans = computeLoansSummary_();   // V3 — additive (zeros when no Loans sheet yet)
   return {
     fiscalYear: fy,
     generatedAt: formatDate(new Date(), 'MMM d, yyyy h:mm a'),
@@ -46,10 +47,11 @@ function dashboardPayload_(fyLabel) {
     charts: _computeCharts_(fyRows),
     pipeline: _computePipeline_(fyRows),
     activity: _computeActivity_(),
-    alerts: _computeAlerts_(advances),
+    alerts: _computeAlerts_(advances, loans),
     reconciliation: computeReconciliationSummary_(),
     readyToMoveCount: countFullyApproved_(),
     advances: advances,
+    loans: loans,
     lists: _buildListsPayload_()
   };
 }
@@ -207,8 +209,8 @@ function _computeActivity_() {
   return out;
 }
 
-/** Dashboard alerts, severity-sorted (§4.22 + Action Required + X4 ready-to-move + E-1 advances). */
-function _computeAlerts_(advances) {
+/** Dashboard alerts, severity-sorted (§4.22 + Action Required + X4 + advances + V3 loans). */
+function _computeAlerts_(advances, loans) {
   var cfg = getCfg(), alerts = [];
   function push(sev, msg) { alerts.push({ severity: sev, message: msg }); }
 
@@ -256,6 +258,17 @@ function _computeAlerts_(advances) {
       ' owed to ' + advances.byPerson.length + ' person(s)');
   }
 
+  // V3: member loans owed by the club.
+  if (loans && loans.outstandingTotal > 0) {
+    push(loans.overdueCount > 0 ? 'critical' : 'warning',
+      'Member loans outstanding: ' + loans.outstandingTotalDisplay + ' owed to ' +
+      loans.byLender.length + ' lender(s)' +
+      (loans.overdueCount > 0 ? ' — ' + loans.overdueCount + ' OVERDUE' : ''));
+    if (loans.readyToRepayCount > 0) {
+      push('warning', loans.readyToRepayCount + ' loan(s) ready to repay — linked CR distributed');
+    }
+  }
+
   var rank = { critical: 0, warning: 1, info: 2 };
   alerts.sort(function (a, b) { return rank[a.severity] - rank[b.severity]; });
   return alerts;
@@ -297,6 +310,7 @@ function refreshDashboardData() {
     yearEndChecklist: computeYearEndChecklist_(),
     readyToMoveCount: payload.readyToMoveCount,
     advances: payload.advances,
+    loans: payload.loans,
     health: { status: 'ok' }
   };
 

@@ -236,6 +236,7 @@ function handleCRStatusChange_(row, newStatus, oldStatus) {
   touchLastModified(cr, row);
 
   if (CR_TO_EXPENSE_STATUS[newStatus]) { cascadeCRStatus(crNum, newStatus); }   // Draft does not propagate
+  if (newStatus === 'Distributed') { try { notifyLoansOfDistributedCR_(crNum); } catch (eL) {} }   // V3
   try { notifyRevalidate_('dashboard'); } catch (e1) {}
   try { notifyRevalidate_('year-end'); } catch (e2) {}
 }
