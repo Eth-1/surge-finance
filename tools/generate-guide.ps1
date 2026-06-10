@@ -92,6 +92,7 @@ R:Expenses~~The unified ledger of everything approved. The source of truth for b
 R:CR Tracker~~Cheque Requisitions sent to the SFSS, with status, totals, and per-funding-source allocations.
 R:Grants~~Grant applications and how much of each grant has been spent.
 R:Budgets~~Per-project budgets with spent / committed / remaining and a health bar.
+R:Loans~~Money members lent the club (e.g. a large expense on a personal card). Status, IDs and overdue flags are automatic; repayments are typed into Amount Repaid.
 R:Reconciliation~~Two sections: cheque reconciliation (expected vs received) and the payment distribution log.
 R:Audit Log~~An automatic, tamper-resistant record of every action. Read-only.
 R:Dashboard Data / Archive~~System tabs: the website cache, and storage for archived prior-year records. Do not edit by hand.
@@ -107,6 +108,7 @@ R:Cancel CR~~Cancels a CR and reverts its expenses to Approved.~~Director only
 R:Undo Move to Expenses~~Sends an expense back to the Approval Queue (only if untouched).~~Director only
 R:Delete Selected Expense~~Deletes an expense with a confirmation showing CR impact.~~Coordinator
 R:Refresh Dashboard Data~~Forces the website cache to recompute now.~~Coordinator
+R:Apply Rich Formatting~~Re-applies the colour-coding rules to every sheet (safe anytime).~~Coordinator
 R:Year-End Rollover / Archive Prior Years~~Closes the fiscal year and archives old records.~~Director only
 TBLEND
 H1:6. Day-to-day workflows
@@ -147,14 +149,20 @@ P:Sometimes a member needs the money before the SFSS reimburses the club, so you
 #:In Expenses, set Payment Method to "E-Transfer (via Finance Director)" and Reimbursement Status to Reimbursed - the member is now paid.
 #:In the Advanced By column (far right), type your name (whoever fronted the money).
 #:The dashboard now shows a Personal Advances card with what the club owes you. It clears automatically once the linked CR is Distributed (the SFSS has repaid the club), or when you blank out Advanced By after being repaid.
-H2:6.7 Rejecting a submission
+H2:6.7 Recording a member loan (someone lends the club money)
+P:The opposite case: a member fronts money FOR the club (e.g. a big deposit on their credit card) and must be paid back.
+#:Open the Loans tab and add a row: Lender Name, Date Received, Amount, Purpose. The Loan ID and Status (Open) fill in automatically.
+#:Optional: put the matching CR number in Linked CR # - when that CR is Distributed, the system reminds you to repay them. A Due Date adds an overdue warning.
+#:When you repay (fully or partially), type the running total into Amount Repaid. Status flips to Partially Repaid / Repaid and Date Repaid fills itself.
+#:The dashboard "Liabilities - owed to people" card shows loans and advances together, and Year-End will not pass until all loans are Repaid.
+H2:6.8 Rejecting a submission
 P:Type a reason in the Rejection Reason column (or set an approver to "Rejected"). The status becomes Rejected and the member sees the reason on their status page. Clearing the reason reverts it.
-H2:6.8 Fixing mistakes
+H2:6.9 Fixing mistakes
 *:Unlink an expense from a CR - clear its Cheque Requisition # cell. It returns to Approved and the CR total recalculates. (Blocked once the cheque is received.)
 *:Undo a move - Surge Finance > Undo Move to Expenses sends it back to the Approval Queue (Director only; only if no CR yet).
 *:Delete - use Delete Selected Expense so you get the confirmation and the CR recalculates.
-H2:6.9 Year-end rollover
-#:Open the Year-End page on the website to see what is left (open CRs, unpaid balances, open grants, non-closed budgets, pending items).
+H2:6.10 Year-end rollover
+#:Open the Year-End page on the website to see what is left (open CRs, unpaid balances, open grants, non-closed budgets, pending items, unpaid member loans).
 #:Resolve each item until the checklist is all green.
 #:The Director runs Surge Finance > Year-End Rollover. With archiving enabled, fully-settled prior-year rows are safely copied to the Archive (copy-verify-then-delete - never lossy). Reports still include archived years.
 H1:7. The website (read-only)

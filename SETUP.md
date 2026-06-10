@@ -185,6 +185,32 @@ When a member needs the money before SFSS reimburses the club, and you pay them 
 
 ✅ It clears automatically once the linked **CR is marked `Distributed`** (SFSS paid the club back), or when you blank out the `Advanced By` cell after being repaid.
 
+### How to record a member loan (V3)
+When a **member lends the club money** (e.g., covers a big expense on their card while you wait for the SFSS):
+1. Open the **Loans** tab and type a new row: **Lender Name, Date Received, Amount, Purpose** (the Loan ID and Status fill in automatically).
+2. (Optional) Put the matching **CR number** in `Linked CR #` — when that CR is marked `Distributed`, the system reminds you to repay them. A `Due Date` adds an overdue warning.
+3. The website Dashboard now shows the loan under **"Liabilities — owed to people."**
+4. When you repay them, enter the amount in **`Amount Repaid`** — Status flips to `Partially Repaid` / `Repaid` and `Date Repaid` fills itself.
+
+✅ Year-End now also checks **"All member loans repaid"** before rollover.
+
+### Make every sheet colour-coded (recommended, one time)
+Run **⚡ Surge Finance → Apply Rich Formatting** (or run `applyRichFormatting` in Apps Script). Every sheet gets readable status colours, warning highlights (overdue, mismatched funding, stale receipts, missing Project/Category), and banded log sheets. Safe to re-run anytime.
+
+---
+
+## Upgrading an existing install to V3 (loans + new look)
+
+> ⚠️ **Never re-run `buildAll()` on a live sheet — it wipes data.** V3 has a safe migration.
+
+1. In **Extensions → Apps Script**, update every changed `.gs` file and add the two new ones: **`Loans`** and **`RichFormatting`** (copy from this repo's `sheets/` folder).
+2. Run **`migrateToV3`** once (function dropdown → Run). ✅ Toast: "Loans sheet created."
+3. Run **`applyRichFormatting`** once. ✅ All tabs get their colour rules.
+4. Publish the API update: **Deploy → Manage deployments → ✏️ Edit → Version: New version → Deploy.** (Without this, the website won't see the new `loans` data.)
+5. Frontend: just **`git push`** — Vercel rebuilds automatically.
+
+✅ **What you should see:** a `Loans` tab in the Sheet; the Dashboard shows "Liabilities — owed to people"; Year-End gains "All member loans repaid"; the site has the new paper-and-serif look.
+
 ---
 
 ## Troubleshooting

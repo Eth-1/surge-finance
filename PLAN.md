@@ -371,27 +371,19 @@ Commit groups:
 
 ## V3 EXECUTION (per ARCHITECTURE.md) — tracker
 
-- [ ] V3-1 GAS loan engine: Config/COLS, Loans.gs, bootstrap (sheet+order+cache key+CF+migrateToV3),
-      Triggers route, CR-Distributed hook, year-end item, Dashboard payload+alerts+cache,
-      WebAppReports cache read, TimeDriven daily flags, Menu item
-- [ ] V3-2 RichFormatting.gs — applyRichFormatting() one-time CF everywhere + menu entry
-- [ ] V3-3 Frontend loans: types (LoansSummary, optional), checksum, LiabilitiesSection
-      (replaces AdvancesSection), dashboard wiring
-- [ ] V3-4 Paper Ledger tokens: globals.css rewrite (paper/ink), tailwind (serif, on-primary),
-      layout fonts (Instrument Serif) + default theme light
-- [ ] V3-5 Component conformance: Logo, Sidebar rail, AppShell widths (1100), status editorial
-      hero + ScrollPath, callout classes (StatusRecordCard/ProgressBar), charts palette+cutout,
-      year-end bar
-- [ ] V3-6 Docs: SETUP upgrade steps + loans, HARDENING, onboarding guide regen, PLAN final
-- **Resume:** if interrupted, run `claude --continue`; pick up at the first unchecked item.
-  Icons verified for 0.439.0: PiggyBank/Banknote/Landmark/HandCoins/Scale/CircleDollarSign.
-  GAS loans contract: see ARCHITECTURE.md §2.4/§4.2–4.3. `loans` is OPTIONAL in DashboardData
-  (frontend must not crash before the Apps Script update).
+- [x] V3-1 GAS loan engine (Loans.gs, bootstrap+migrateToV3, routing, year-end, dashboard, cache)
+- [x] V3-2 RichFormatting.gs — applyRichFormatting() + menu entry
+- [x] V3-3 Frontend loans (LoansSummary optional, checksum, LiabilitiesSection)
+- [x] V3-4 Paper Ledger tokens (paper/ink globals.css, serif font, tailwind, light default)
+- [x] V3-5 Component conformance (Logo/Sidebar/1100px/status hero + ScrollPath/callouts/charts)
+- [x] V3-6 Docs (SETUP V3 upgrade + loans + formatting, HARDENING, guide regenerated)
 
 ## Current Session
 
-- **Status:** V3 execution in progress (see tracker above).
-- **Validation note:** no node in env — Vercel builds on push; statically verify imports/icons.
+- **Status:** ✅ V3 COMPLETE (loan tracker + rich formatting + Paper Ledger redesign).
+- **User finish steps:** see SETUP.md "Upgrading an existing install to V3" — update GAS
+  files (incl. new Loans.gs + RichFormatting.gs), run `migrateToV3` then
+  `applyRichFormatting`, redeploy the web app (new version), then `git push`.
 
 ### Resume notes (read before continuing)
 - **Phases 1–3 complete; Phase 4 in progress (4.1–4.9 done — `/status` fully works).**

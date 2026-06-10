@@ -78,6 +78,15 @@ Every stress-test resolution from Part 8, mapped to the file/function that imple
 | **F-2** | Sortable report By-Status table | `ByStatusTable.tsx`. |
 | **E-1** | Personal advances ("paid before SFSS") | `Advanced By` column (Expenses+Archive); `_computeAdvances_` + alert (`Dashboard.gs`); `AdvancesSection.tsx`. Settles when the linked CR is Distributed. |
 
-**Status: all V2.2 hardening items + the approved audit improvements are implemented.**
+## V3 (ARCHITECTURE.md) additions
+
+| Item | Implementation |
+|---|---|
+| Member loan tracker | `Loans.gs` (derived status, auto IDs, overdue flags, CR-Distributed repay nudge), `buildLoansSheet_` + **non-destructive `migrateToV3()`** (`bootstrap.gs`), trigger routing, audit `LOAN_*` actions |
+| Loans surfaced | Dashboard `loans` payload/cache/alerts; `LiabilitiesSection.tsx` (advances + loans); year-end "All member loans repaid" blocker; auto-refresh checksum |
+| Rich conditional formatting | `RichFormatting.gs` → `applyRichFormatting()` (idempotent; full status palettes, cell-level nudges, Settings changed-from-default, log banding) + menu item |
+| Paper Ledger design system | `globals.css` paper/ink tokens (AA, gold decorative-only), Instrument Serif display, kill-list (glass/gradients/glow/springs retired via token redefinition — zero class breakage), editorial `/status` + `ScrollPath` (reduced-motion safe), themed muted chart palettes |
+
+**Status: all V2.2 hardening items, the approved audit improvements, and V3 are implemented.**
 Backend = `/sheets/*.gs`; frontend = Next.js App Router. Denied in audit: E-3 (separate
 Budgets/Grants/Reconciliation web views).

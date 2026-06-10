@@ -39,7 +39,8 @@
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): Liabilities module — advances + member loans on the dashboard *)",
       "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(design\\): Paper Ledger tokens — editorial palette, serif display, kill-list *)",
       "Bash(grep -v \"//\")",
-      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): Paper Ledger conformance — editorial /status, charts, chrome *)"
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'feat\\(ui\\): Paper Ledger conformance — editorial /status, charts, chrome *)",
+      "Bash(git -c user.name=Claude -c user.email=noreply@anthropic.com commit -q -m 'docs: V3 — SETUP upgrade guide + loan/formatting workflows, HARDENING map, onboarding guide regenerated, tracker complete *)"
     ]
   }
 }
